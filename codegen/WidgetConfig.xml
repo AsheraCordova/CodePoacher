@@ -1,0 +1,7 @@
+<WidgetConfigs>
+    <WidgetConfig name="android.widget.AbsoluteLayout">
+        <Source type="androiddocurl" url="https://developer.android.com/reference/android/widget/AbsoluteLayout" id="1"></Source>
+		<Source type="javasource" url="https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/widget/AbsoluteLayout.java?format=TEXT" id="1"></Source>
+		<Source type="attrxml" url="https://android.googlesource.com/platform/frameworks/base/+/master/core/res/res/values/attrs.xml?format=TEXT" id="1"></Source>
+    </WidgetConfig>
+</WidgetConfigs>

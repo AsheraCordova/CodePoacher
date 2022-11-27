@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Widgets>
+    <Widget    
+        template="BaseHasWidgetsTemplate.java" name="AbsoluteLayout" classname="AbsoluteLayoutImpl" os="android" prefix="" nativeclassname="android.widget.AbsoluteLayout" jstemplate="widgettemplate.js" createDefault="asnativewidget|nativecreate|" group="AbsoluteLayout" packageName="android.widget" generateXmlTestCase="true">
+        <CustomAttribute generatorUrl="https://android.googlesource.com/platform/frameworks/base/+/master/core/res/res/values/attrs.xml?format=TEXT" inherited="true" name="layout_x" type="dimension" code="code:layoutParams.x=(int)objValue;" javaType="int" getterCode="code:layoutParams.x"/>
+        <CustomAttribute generatorUrl="https://android.googlesource.com/platform/frameworks/base/+/master/core/res/res/values/attrs.xml?format=TEXT" inherited="true" name="layout_y" type="dimension" code="code:layoutParams.y=(int)objValue;" javaType="int" getterCode="code:layoutParams.y"/>
+        <ReplaceString name="-2, -2"  replace="-2, -2, 0, 0" target="java"/>
+        <ReplaceString name="import androidx\.core\.view\.\*;"  replace="" target="java"/>
+		<Widget baseDirectory="D:/Java/github_ashera/AbsoluteLayout/swt" os="swt" prefix="r." createDefault="nativecreate|asnativewidget|" generateXmlTestCase="true" ></Widget>
+		<Widget baseDirectory="D:/Java/github_ashera/AbsoluteLayout/ios" os="ios" prefix="r." createDefault="nativecreate|asnativewidget|" generateXmlTestCase="true" ></Widget>
+		<Widget baseDirectory="D:/Java/github_ashera/AbsoluteLayout/browser" os="web" prefix="r." createDefault="nativecreate|asnativewidget|" generateXmlTestCase="true" ></Widget>
+	</Widget>
+</Widgets>
+

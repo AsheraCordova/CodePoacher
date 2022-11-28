@@ -10,7 +10,7 @@ public class WidgetGenerator {
 	public static void main(String[] args) throws Exception {
 		Properties properties = new Properties();
 		properties.load(new FileReader(new File("config.properties")));
-		String pathname = properties.getProperty("baseDir") + "/";
+		String pathname = properties.getProperty("baseDir") + "/" + properties.getProperty("name") + "/";
 		CodeGenFromHtml.generateCode(pathname);
 	}
 }

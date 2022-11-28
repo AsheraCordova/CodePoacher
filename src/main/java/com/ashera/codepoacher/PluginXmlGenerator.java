@@ -13,8 +13,9 @@ public class PluginXmlGenerator {
 	public static void main(String[] args) throws Exception{
 		Properties properties = new Properties();
 		properties.load(new FileReader(new File("config.properties")));
-		String layoutName = "../" + properties.getProperty("name") + "/";
-		String pathname = properties.getProperty("baseDir") + "/";
+		String name = properties.getProperty("name");
+		String layoutName = "../" + name + "/";
+		String pathname = properties.getProperty("baseDir") + "/" + name;
 
 		List<String> pathWithDirAndPrefixes = new java.util.ArrayList<>(Arrays.asList(new String []{
 				layoutName + "android/src:src::",

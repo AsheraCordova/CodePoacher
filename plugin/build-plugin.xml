@@ -57,6 +57,12 @@
 			<param name="uniqueid" value="${uniqueid}" />
 			<param name="osplugin" value="swt" />
 		</antcall>
+		
+		<copy tofile="${iosdest}/.${uniqueid}-ios-prefixes"
+			file="plugintemplate-codegen/ios-prefixes" overwrite="${overwrite}"
+			failonerror="false">
+			<filterset refid="myFilterSet"></filterset>
+		</copy>
 		<antcall target="createPluginProject">
 			<param name="pluginDir" value="${webPluginDir}" />
 			<param name="featurename" value="${featurename}" />

@@ -26,5 +26,9 @@
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.ashera</groupId>
+			<artifactId>SWTLayouts</artifactId>
+		</dependency>
 	</dependencies>
 </project>

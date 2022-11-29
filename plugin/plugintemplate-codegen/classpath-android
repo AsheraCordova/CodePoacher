@@ -16,6 +16,4 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/AndroidLayouts"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/CordovaLib-For-Eclipse"/>
 </classpath>

@@ -35,5 +35,10 @@
 			<groupId>com.ashera</groupId>
 			<artifactId>htmlparser</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.ashera</groupId>
+			<artifactId>ios_widget_library</artifactId>
+		</dependency>
 	</dependencies>
 </project>

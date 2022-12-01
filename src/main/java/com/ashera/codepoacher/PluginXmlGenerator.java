@@ -11,11 +11,14 @@ import com.ashera.codegen.PluginPathGen;
 
 public class PluginXmlGenerator {
 	public static void main(String[] args) throws Exception{
+		String projectBaseDir = System.getProperty("baseDir");
+		if (projectBaseDir == null) {
+			throw new RuntimeException("Please define system env baseDir");
+		}
 		Properties properties = new Properties();
-		properties.load(new FileReader(new File("config.properties")));
+		properties.load(new FileReader(new File(projectBaseDir + "/codepoacher/config.properties")));
 		String name = properties.getProperty("name");
 		String layoutName = "../" + name + "/";
-		String pathname = properties.getProperty("baseDir") + "/" + name;
 
 		List<String> pathWithDirAndPrefixes = new java.util.ArrayList<>(Arrays.asList(new String []{
 				layoutName + "android/src:src::",
@@ -32,6 +35,6 @@ public class PluginXmlGenerator {
 				layoutName + "ios/res:res::"
 		}));
 		PluginPathGen.generatePluginXml(pathWithDirAndPrefixes);
-		JumboPluginGenerator.createPluginXml(new File(pathname));
+		JumboPluginGenerator.createPluginXml(new File(projectBaseDir));
 	}
 }

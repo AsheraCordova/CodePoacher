@@ -15,6 +15,7 @@
 			<pathelement location="ant-contrib-0.6.jar" />
 		</classpath>
 	</taskdef>
+	
 	<property file="${projectBaseDir}/codepoacher/config.properties" />
 	<property name="baseDir" value="${projectBaseDir}/.."/>
 
@@ -206,9 +207,9 @@
 			<equals arg1="${os}" arg2="ios" />
 			<then>
 				<move file="${dest}/ios/src/MyCordovaPlugin.h"
-					tofile="${dest}/ios/src/Cordova${name}.h" />
+					tofile="${dest}/ios/src/Cordova${name}Plugin.h" />
 				<move file="${dest}/ios/src/MyCordovaPlugin.m"
-					tofile="${dest}/ios/src/Cordova${name}.m" />
+					tofile="${dest}/ios/src/Cordova${name}Plugin.m" />
 				<delete file="${dest}/src/main/java/MyCordovaPlugin.java" />
 				<delete file="${dest}/AndroidManifest.xml" />
 				<delete file="${dest}/proguard-project.txt" />

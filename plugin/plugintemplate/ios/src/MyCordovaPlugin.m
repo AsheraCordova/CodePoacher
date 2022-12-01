@@ -1,10 +1,10 @@
 #import "Cordova@name@.h"
-#import "@name@.h"
+#import "@name@Plugin.h"
 
-@implementation Cordova@name@
+@implementation Cordova@name@Plugin
 + (void)initialize
 {
-    [@iospackageprefix@@name@ initPlugin];
+    [@iospackageprefix@@name@Plugin initPlugin];
 }
 
 @end

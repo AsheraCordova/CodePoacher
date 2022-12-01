@@ -1,5 +1,5 @@
 #import <Cordova/CDV.h>
 
-@interface Cordova@name@ : CDVPlugin
+@interface Cordova@name@Plugin : CDVPlugin
 
 @end

@@ -13,7 +13,7 @@ public class PluginXmlGenerator {
 	public static void main(String[] args) throws Exception{
 		String projectBaseDir = System.getProperty("baseDir");
 		if (projectBaseDir == null) {
-			throw new RuntimeException("Please define system env baseDir");
+			throw new RuntimeException("Please define system -DbaseDir=XX");
 		}
 		Properties properties = new Properties();
 		properties.load(new FileReader(new File(projectBaseDir + "/codepoacher/config.properties")));

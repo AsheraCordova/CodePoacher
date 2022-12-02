@@ -21,11 +21,11 @@
 		</dependency>
 		<dependency>
 			<groupId>com.ashera</groupId>
-			<artifactId>SWTAndroid</artifactId>
+			<artifactId>AndroidJ</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.ashera</groupId>
-			<artifactId>SWTAndroidX-core</artifactId>
+			<artifactId>AndroidXJ</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.google.j2objc</groupId>

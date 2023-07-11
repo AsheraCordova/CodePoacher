@@ -197,6 +197,9 @@ export class ${myclass.widgetName}_${attrs.trimmedAttribute} {
 	<#if (param.converterType?? && param.converterType == 'bitflag')>
 	@Transform(({value, obj, type}) => TransformerFactory.getInstance().transform(value, obj, type, "${param.type}"))
 	</#if>
+	<#if (param.type?? && param.type == 'gravity')>
+	@Transform(({value, obj, type}) => TransformerFactory.getInstance().transform(value, obj, type, "gravity"))
+	</#if>
 	${param.attributeForTs}!:<@getTypeScriptType attrs=param />;
 </#list>
 }

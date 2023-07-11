@@ -1,0 +1,31 @@
+<#macro getAdditinalAttrs_CoordinatorLayout attrs name value id localname widgetname>
+<#compress>
+	<#if attrs.trimmedAttribute == 'layout_keyline'>
+		app:keylines="@array/keylines"
+	</#if>
+</#compress>	
+</#macro>         
+
+
+<#function getTestCases_CoordinatorLayout attrs widgetname>
+	
+	<#assign myarray=[]> 
+	<#if attrs.trimmedAttribute == 'layout_behavior'>
+		<#assign myarray = myarray + ["test"]>
+	</#if>
+	<#if attrs.trimmedAttribute == 'keylines'>
+		<#assign myarray = myarray + ["@array/keylines"]>
+	</#if>
+	<#return myarray>
+</#function>
+
+<#function getTestCases_CoordinatorLayout_attrs attrs widgetname>
+	<#assign myarray=[]> 
+	<#if attrs.trimmedAttribute == 'layout_behavior'>
+		<#assign myarray = myarray + ["'test'"]>
+	</#if>
+	<#if attrs.trimmedAttribute == 'keylines'>
+		<#assign myarray = myarray + ["'@array/keylines'"]>
+	</#if>
+	<#return myarray>
+</#function>	

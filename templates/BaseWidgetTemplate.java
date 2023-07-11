@@ -78,14 +78,14 @@ public class ${myclass.widgetName} extends BaseWidget {
 	<#else>
 	<#if process == 'ios'>
 	protected @Property Object uiView;
-	protected ${myclass.widgetClassname} ${myclass.widgetClassVarName};		
+	protected ${myclass.widgetClassname} <@getBaseWidgetClassVar myclass=myclass />;		
 	</#if>
 	<#if process == 'android'>
 	protected <@getClassName myclass=myclass></@getClassName> ${myclass.varName};
 	</#if>
 	<#if process == 'swt' || process == 'web'>
 	protected ${myclass.nativeClassName} ${myclass.nativeClassVarName};
-	protected ${myclass.widgetClassname} ${myclass.widgetClassVarName};	
+	protected ${myclass.widgetClassname} <@getBaseWidgetClassVar myclass=myclass />;	
 	</#if>	
 	</#if>
 	<#if myclass.createDefault?contains("createcanvas|")>
@@ -126,23 +126,24 @@ public class ${myclass.widgetName} extends BaseWidget {
 	public ${myclass.widgetName}() {
 		super(GROUP_NAME, LOCAL_NAME);
 	}
+	public  ${myclass.widgetName}(String localname) {
+		super(GROUP_NAME, localname);
+	}
+	public  ${myclass.widgetName}(String groupName, String localname) {
+		super(groupName, localname);
+	}
 
 	<#if !myclass.createDefault?contains("compositeWidget|")>
 	<#include "/templates/WidgetExt.java">
-	
-	public void updateMeasuredDimension(int width, int height) {
-	    <#if process == 'android'>
-	    ((<@getWidgetClassNameShortName myclass=myclass></@getWidgetClassNameShortName>Ext) ${myclass.varName}).updateMeasuredDimension(width, height);
-	    </#if>
-	    <#if process == 'swt' || process == 'ios'>
-		((<@getWidgetClassNameShortName myclass=myclass></@getWidgetClassNameShortName>Ext) ${myclass.widgetClassVarName}).updateMeasuredDimension(width, height);
-		</#if>
+	@Override
+	public Class getViewClass() {
+		return <@getWidgetClassNameShortName myclass=myclass></@getWidgetClassNameShortName>Ext.class;
 	}
 	</#if>
 
 	@Override
 	public IWidget newInstance() {
-		return new ${myclass.widgetName}();
+		return new ${myclass.widgetName}(groupName, localName);
 	}
 	
 	@SuppressLint("NewApi")
@@ -159,11 +160,8 @@ public class ${myclass.widgetName} extends BaseWidget {
 		<#if process == 'android'>
 		<@initAndroidWidget myclass=myclass></@initAndroidWidget>
 		</#if>
-		<#if process == 'swt' || process == 'web'>
-		${myclass.widgetClassVarName} = new <@getWidgetClassNameShortName myclass=myclass></@getWidgetClassNameShortName>Ext();
-		</#if>
-		<#if process == 'ios'>
-		${myclass.widgetClassVarName} = new <@getWidgetClassNameShortName myclass=myclass></@getWidgetClassNameShortName>Ext();
+		<#if process == 'swt' || process == 'web' || process == 'ios'>
+		<@getBaseWidgetClassVar myclass=myclass /> = new <@getWidgetClassNameShortName myclass=myclass></@getWidgetClassNameShortName>Ext();
 		</#if>
 		<#if myclass.createDefault?contains("simpleWrapableView|")>
 		createSimpleWrapableView();
@@ -254,7 +252,7 @@ public class ${myclass.widgetName} extends BaseWidget {
 		<#if myclass.createDefault?contains("compositeWidget|")>
 		return compositeWidget.asWidget();
 		<#else>
-		return <#if process == 'android'>${myclass.varName};</#if><#if process == 'swt' || process == 'web'>${myclass.widgetClassVarName};</#if><#if process == 'ios'>${myclass.widgetClassVarName};</#if>
+		return <#if process == 'android'>${myclass.varName};</#if><#if process == 'swt' || process == 'web' || process=='ios'><@getBaseWidgetClassVar myclass=myclass />;</#if>
 		</#if>
 	}
 
@@ -299,17 +297,21 @@ public class ${myclass.widgetName} extends BaseWidget {
 			super.setId(id);
 			<#if myclass.createDefault?contains("compositeWidget|")>
 			((View)compositeWidget.asWidget()).setId(IdGenerator.getId(id));
-			<#else>
+			<#elseif process == 'swt' || process == 'web' || process == 'ios'>
+			<@getBaseWidgetClassVar myclass=myclass />.setId(IdGenerator.getId(id));
+			<#else>			
 			${myclass.widgetClassVarName}.setId(IdGenerator.getId(id));
 			</#if>
 		}
 	}
 	
-    <#if process == 'swt'>   
+	<#if process == 'swt' ||  process == 'web' ||  process == 'ios'>
     @Override
     public void setVisible(boolean b) {
         ((View)asWidget()).setVisibility(b ? View.VISIBLE : View.GONE);
     }
+    </#if>
+    <#if process == 'swt'>
 	public int getStyle(String key, int initStyle, Map<String, Object> params, IFragment fragment) {
 		if (params == null) {
     		return initStyle;

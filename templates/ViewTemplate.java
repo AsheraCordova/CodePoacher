@@ -60,7 +60,11 @@ public class ${myclass.widgetName} {
 
 	@SuppressLint("NewApi")
 	public static void setAttribute(IWidget w, WidgetAttribute key, String strValue, Object objValue, ILifeCycleDecorator decorator) {
-		setAttribute(w, w.asNativeWidget(), key, strValue, objValue, decorator);
+		Object nativeWidget = w.invokeMethod("nativeWidgetFor", key.getAttributeName());
+		if (nativeWidget == null) {
+			nativeWidget = w.asNativeWidget();
+		}
+		setAttribute(w, nativeWidget, key, strValue, objValue, decorator);
 	}
 	@SuppressLint("NewApi")
 	public static void setAttribute(IWidget w, SimpleWrapableView wrapperView, WidgetAttribute key, String strValue, Object objValue, ILifeCycleDecorator decorator) {

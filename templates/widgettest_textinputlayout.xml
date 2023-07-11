@@ -1,0 +1,69 @@
+<#macro getAdditinalAttrs_TextInputLayout attrs name value id localname widgetname>
+	<#if widgetname=='com.google.android.material.textfield.TextInputLayout'>
+	<#if attrs.trimmedAttribute == 'boxBackgroundColor'>
+	app:boxBackgroundMode="filled"
+	</#if>
+	<#if attrs.trimmedAttribute == 'boxBackgroundMode'>
+	boxBackgroundColor="#ffff00"
+	</#if>
+	<#if attrs.trimmedAttribute == 'boxStrokeErrorColor' || attrs.trimmedAttribute == 'boxStrokeColor'>
+	app:boxBackgroundMode="outline"
+	</#if>
+	<#if attrs.trimmedAttribute == 'boxStrokeWidth' || attrs.trimmedAttribute == 'boxStrokeWidthFocused'>
+	app:boxBackgroundMode="outline"
+	</#if>
+	<#if attrs.trimmedAttribute?starts_with('counter') && attrs.trimmedAttribute != 'counterEnabled'>
+	counterEnabled="true"
+	</#if>
+	<#if (attrs.trimmedAttribute?index_of('hint') != -1 || attrs.trimmedAttribute?index_of('Hint') != -1) && attrs.trimmedAttribute != 'hint'>
+	hint="test"
+	</#if>
+	<#if (attrs.trimmedAttribute?index_of('Error') != -1 || attrs.trimmedAttribute?index_of('error') != -1) && attrs.trimmedAttribute != 'error'>
+	error="test"
+	</#if>
+	<#if (attrs.trimmedAttribute?index_of('errorIcon') != -1) && attrs.trimmedAttribute != 'errorIconDrawable'>
+	errorIconDrawable="@drawable/cross3"
+	</#if>
+	<#if attrs.trimmedAttribute?starts_with('endIcon') && attrs.trimmedAttribute != 'endIconDrawable' && attrs.trimmedAttribute != 'endIconMode'>
+	endIconDrawable="@drawable/cross3"
+	endIconMode="custom"
+	</#if>
+	<#if attrs.trimmedAttribute?starts_with('startIcon') && attrs.trimmedAttribute != 'startIconDrawable'>
+	startIconDrawable="@drawable/cross3"
+	</#if>
+	<#if attrs.trimmedAttribute == 'endIconDrawable'>
+	endIconMode="custom"
+	</#if>
+	<#if attrs.trimmedAttribute?starts_with('counterOverflow')>
+	counterMaxLength="2"
+	</#if>
+	<#if (attrs.trimmedAttribute?index_of('helperText') != -1 || attrs.trimmedAttribute?index_of('HelperText') != -1) && attrs.trimmedAttribute != 'helperText'>
+	helperText="test"
+	</#if>
+	<#if (attrs.trimmedAttribute?index_of('prefixText') != -1 || attrs.trimmedAttribute?index_of('PrefixText') != -1) && attrs.trimmedAttribute != 'prefixText'>
+	prefixText="test"
+	</#if>
+	<#if (attrs.trimmedAttribute?index_of('suffixText') != -1 || attrs.trimmedAttribute?index_of('SuffixText') != -1) && attrs.trimmedAttribute != 'suffixText'>
+	suffixText="test"
+	</#if>
+	<#if (attrs.trimmedAttribute?index_of('placeholder') != -1 || attrs.trimmedAttribute?index_of('Placeholder') != -1) && attrs.trimmedAttribute != 'placeholderText'>
+	placeholderText="test"
+	</#if>
+	<#if (attrs.trimmedAttribute?index_of('passwordVisibilityToggle') != -1 || attrs.trimmedAttribute?index_of('PasswordVisibilityToggle') != -1) && attrs.trimmedAttribute != 'passwordVisibilityToggleEnabled'>
+	passwordVisibilityToggleEnabled="true"
+	</#if>
+	<#if attrs.trimmedAttribute?starts_with('boxCornerRadius')>
+	app:boxBackgroundMode="outline"
+	</#if>
+	</#if>
+</#macro>         
+
+<#function getTestCases_TextInputLayout attrs>
+	<#assign myarray=[]> 
+	<#return myarray>
+</#function>
+
+<#function getTestCases_attrs_TextInputLayout attrs>
+	<#assign myarray=[]> 
+	<#return myarray>
+</#function>	

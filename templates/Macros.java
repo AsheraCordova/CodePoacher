@@ -139,5 +139,12 @@ ${myclass.widgetName?replace("Impl", "")}
 </#compress>
 </#macro>
 <#macro widgetFactoryRegisterAttribute attrs name forChild=false>
-		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("${name}").withType("<#if attrs.converterType??>${myclass.localName}.</#if>${attrs.type}")<#if attrs.arrayType??>.withArrayType("${attrs.arrayType}")</#if><#if attrs.arrayListToFinalType??>.withArrayListToFinalType("${attrs.arrayListToFinalType}")</#if><#if attrs.order != "0">.withOrder(${attrs.order})</#if><#if attrs.decorator?? && attrs.decorator != "null">.withDecorator(${attrs.decorator})</#if><#if attrs.bufferStrategy != "BUFFER_STRATEGY_NONE">.withBufferStrategy(${attrs.bufferStrategy})</#if><#if attrs.updateUiFlag != "UPDATE_UI_NONE">.withUiFlag(${attrs.updateUiFlag})</#if><#if attrs.applyBeforeChildAdd>.beforeChildAdd()</#if><#if forChild>.forChild()</#if><#if attrs.simpleWrapableViewStrategy??>.withSimpleWrapableViewStrategy(${attrs.simpleWrapableViewStrategy})</#if>);
+		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("${name}").withType("<#if attrs.converterType??>${myclass.localName}.</#if>${attrs.type}")<#if attrs.arrayType??>.withArrayType("${attrs.arrayType}")</#if><#if attrs.arrayListToFinalType??>.withArrayListToFinalType("${attrs.arrayListToFinalType}")</#if><#if attrs.order != "0">.withOrder(${attrs.order})</#if><#if attrs.decorator?? && attrs.decorator != "null">.withDecorator(${attrs.decorator})</#if><#if attrs.bufferStrategy != "BUFFER_STRATEGY_NONE">.withBufferStrategy(${attrs.bufferStrategy})</#if><#if attrs.updateUiFlag != "UPDATE_UI_NONE">.withUiFlag(${attrs.updateUiFlag})</#if><#if attrs.applyBeforeChildAdd>.beforeChildAdd()</#if><#if forChild>.forChild()</#if><#if attrs.simpleWrapableViewStrategy??>.withSimpleWrapableViewStrategy(${attrs.simpleWrapableViewStrategy})</#if><#if attrs.stylePriority??>.withStylePriority(${attrs.stylePriority})</#if>);
+</#macro>
+
+<#macro getBaseWidgetClassVar myclass>
+<#compress>
+<#if myclass.packageName == 'androidx.constraintlayout.widget'>${myclass.widgetClassVarName}
+<#else>measurableView</#if>
+</#compress>
 </#macro>

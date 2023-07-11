@@ -25,6 +25,14 @@
     }  
 }
 
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    UIView* uiview = [super hitTest:point withEvent:event];
+    if ([[self.widget getFromTempCacheWithNSString:@"outsideTouchable"] isEqual:@"true"]) {
+        [[[self.widget getFragment] getEventBus] notifyObserversWithNSString:@"outsideClicked" withId:nil];
+    }
+    return uiview;
+}
+
 -(void) drawRect:(CGRect)rect {
     <#if !createDefault?contains("skipDefaultBG|")>
     CGRectWrapper* wrapper = [CGRectWrapper new];

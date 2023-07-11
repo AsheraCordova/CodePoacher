@@ -153,7 +153,7 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
 
 	@Override
 	public IWidget newInstance() {
-		return new ${myclass.widgetName}();
+		return new ${myclass.widgetName}(groupName, localName);
 	}
 	
 	@SuppressLint("NewApi")
@@ -203,7 +203,7 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
 
 	<#if !myclass.createDefault?contains("skipRemoveMethods|")>
 	@Override
-	public boolean remove(IWidget w) {
+	public boolean remove(IWidget w) {<#if myclass.createDefault?contains("preRemove|")>if (preRemove(w)) {return true;}</#if>		
 		boolean remove = super.remove(w);
 		${myclass.varName}.removeView((View) w.asWidget());
 		 <#if process == 'swt' || process == 'ios' || process == 'web'>
@@ -228,7 +228,7 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
 	</#if>
 	
 	@Override
-	public void add(IWidget w, int index) {
+	public void add(IWidget w, int index) {<#if myclass.createDefault?contains("preAdd|")>if (preAdd(w, index)) {return;}</#if>
 		if (index != -2) {
 			View view = (View) w.asWidget();
 			createLayoutParams(view);
@@ -281,7 +281,7 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
 	@SuppressLint("NewApi")
 	@Override
 	public void setChildAttribute(IWidget w, WidgetAttribute key, String strValue, Object objValue) {
-		View view = (View) w.asWidget();
+		View view = (View) w.asWidget();<#if myclass.createDefault?contains("preSetChildAttribute|")>if (preSetChildAttribute(w, key, strValue, objValue)) {return;}</#if>
 		${myclass.className}.LayoutParams layoutParams = getLayoutParams(view);
 		ViewGroupImpl.setChildAttribute(w, key, objValue, layoutParams);		
 		
@@ -358,12 +358,11 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
 	
 	<#include "/templates/WidgetExt.java">
 
-	
-	public void updateMeasuredDimension(int width, int height) {
-		((<@getWidgetClassNameShortName myclass=myclass></@getWidgetClassNameShortName>Ext) ${myclass.varName}).updateMeasuredDimension(width, height);
+	@Override
+	public Class getViewClass() {
+		return <@getWidgetClassNameShortName myclass=myclass></@getWidgetClassNameShortName>Ext.class;
 	}
 	
-
 	@SuppressLint("NewApi")
 	@Override
 	public void setAttribute(WidgetAttribute key, String strValue, Object objValue, ILifeCycleDecorator decorator) {
@@ -507,11 +506,13 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
 	}
 	
     
-    <#if process == 'swt'>   
+    <#if process == 'swt' ||  process == 'web' ||  process == 'ios'>   
     @Override
     public void setVisible(boolean b) {
         ((View)asWidget()).setVisibility(b ? View.VISIBLE : View.GONE);
     }
+    </#if>
+    <#if process == 'swt'>
     public int getStyle(String key, int initStyle, Map<String, Object> params, IFragment fragment) {
     	if (params == null) {
     		return initStyle;

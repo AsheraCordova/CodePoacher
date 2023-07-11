@@ -51,10 +51,10 @@ public class ${myclass.widgetName} extends BaseWidget {
 	public final static String LOCAL_NAME = "${myclass.localName}"; 
 	public final static String GROUP_NAME = "${myclass.group}";
 	
+	<#include "/templates/WidgetAttributesClass.java">
+	
 	@Override
 	public void loadAttributes(String attributeName) {
-		ViewImpl.register(attributeName);
-
 		<#include "/templates/WidgetAttributes.java">
 
 	}
@@ -74,17 +74,17 @@ public class ${myclass.widgetName} extends BaseWidget {
 		super.create(fragment, params);
 		
 		<#if process == 'swt'>
-        viewStub = new View();
+        viewStub = new ViewExt();
         pane = new Composite(ViewImpl.getParent(this), SWT.NONE);
         ViewImpl.nativeMakeFrame(pane, 0, 0, 0, 0);
         </#if>
         <#if process == 'ios'>
-        viewStub = new View();
+        viewStub = new ViewExt();
         createView();
         ViewImpl.nativeMakeFrame(uiView, 0, 0, 0, 0);
         </#if>
         <#if process == 'web'>
-        viewStub = new View();
+        viewStub = new ViewExt();
         createView();
         ViewImpl.nativeMakeFrame(htmlElement, 0, 0, 0, 0);
         </#if>
@@ -94,6 +94,28 @@ public class ${myclass.widgetName} extends BaseWidget {
 		nativeCreate(fragment, params);	
 	}
 	
+	<#if process == 'swt' || process == 'ios' || process == 'web'>
+	public class ViewExt extends View{
+		@Override
+		public void remeasure() {
+			getFragment().remeasure();
+		}
+        private Map<String, IWidget> templates;
+    	@Override
+    	public r.android.view.View inflateView(java.lang.String layout) {
+    		if (templates == null) {
+    			templates = new java.util.HashMap<String, IWidget>();
+    		}
+    		IWidget template = templates.get(layout);
+    		if (template == null) {
+    			template = (IWidget) quickConvert(layout, "template");
+    			templates.put(layout, template);
+    		}
+    		IWidget widget = template.loadLazyWidgets(${myclass.widgetName}.this.getParent());
+    		return (View) widget.asWidget();
+    	}
+	}
+	</#if>
 
     <#if process == 'ios'>
     public native void createView()/*-[
@@ -115,7 +137,6 @@ public class ${myclass.widgetName} extends BaseWidget {
 	@SuppressLint("NewApi")
 	public void setAttribute(WidgetAttribute key, String strValue, Object objValue, ILifeCycleDecorator decorator) {		
 		Object nativeWidget = asNativeWidget();
-		ViewImpl.setAttribute(this, key, strValue, objValue, decorator);
 
 		<#if myclass.widgetAttributes?has_content>
 		switch (key.getAttributeName()) {
@@ -125,10 +146,10 @@ public class ${myclass.widgetName} extends BaseWidget {
 			</#list>			
 			case "${attrs.trimmedAttribute}": {
 				<#if attrs.setterMethodNative??>
-					<@generateAttrCode attrs=attrs setter=attrs.setterMethodNative></@generateAttrCode>
+					<@generateAttrCode attrs=attrs setter=attrs.setterMethodNative quickConvertPrefix=false></@generateAttrCode>
 				</#if>
 				
-				<@generateAttrCode attrs=attrs setter=attrs.trimmedSetter></@generateAttrCode>
+				<@generateAttrCode attrs=attrs setter=attrs.trimmedSetter quickConvertPrefix=false></@generateAttrCode>
 			}
 			break;
 		</#list>
@@ -145,10 +166,6 @@ public class ${myclass.widgetName} extends BaseWidget {
 	@Override
 	@SuppressLint("NewApi")
 	public Object getAttribute(WidgetAttribute key, ILifeCycleDecorator decorator) {
-		Object attributeValue = ViewImpl.getAttribute(this, key, decorator);
-		if (attributeValue != null) {
-			return attributeValue;
-		}
 		Object nativeWidget = asNativeWidget();
 		<#if myclass.widgetAttributes?has_content>
 		switch (key.getAttributeName()) {
@@ -201,6 +218,10 @@ public class ${myclass.widgetName} extends BaseWidget {
     private void nativeCreate(IFragment fragment, Map<String, Object> params) {
     }
     
-    </#if> 
+    </#if>
+    @Override
+	public Class getViewClass() {
+		return View.class;
+	}
 	//end - body
 }

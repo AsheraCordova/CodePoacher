@@ -6,6 +6,8 @@
 <#include "/templates/widgettest_toolbar.xml">
 <#include "/templates/widgettest_datepicker.xml">
 <#include "/templates/widgettest_progressbar.xml">
+<#include "/templates/widgettest_coordinatorlayout.xml">
+<#include "/templates/widgettest_textinputlayout.xml">
 <#macro getName name namespace=''>
 <#compress>
 	<#if name?starts_with("swt") || name?starts_with("ios")>
@@ -36,7 +38,12 @@
 		<@getAdditinalAttrs_TextView attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_TextView>
 		<@getAdditinalAttrs_Toolbar attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_Toolbar>
 		<@getAdditinalAttrs_ProgressBar attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_ProgressBar>
+		<@getAdditinalAttrs_CoordinatorLayout attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_CoordinatorLayout>
+		<@getAdditinalAttrs_TextInputLayout attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_TextInputLayout>
 		
+		<#if name != 'contentView' && widgetname=='com.ashera.layout.PopupWindow'>
+		contentView="@layout/listfooter"
+        </#if>
 		<#if (name == 'hint' || name == 'textColorHint') && widgetname=='UITextView'>
 			create-attr-count="1"
 			create-attr-0="enableFeatures"
@@ -292,7 +299,7 @@
 		create-attr-0="swtTextStyle"
 		swtTextStyle="multi|wrap"
 	</#if>
-	<#if process == "swt" && (name == 'singleLine' && value=='true' && localname == "EditText")>
+	<#if process == "swt" && (name == 'singleLine' && value=='true' && (localname == "EditText" || localname == "AutoCompleteTextView"))>
 		create-attr-count="1"
 		create-attr-0="swtTextStyle"
 		swtTextStyle="none"
@@ -502,6 +509,13 @@ android:background="#ff0000"
 	 <TextView
 	            android:text="test ${testcase}"
 	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" />
+	<#elseif myclass.localName == 'com.google.android.material.textfield.TextInputLayout'>
+	<com.google.android.material.textfield.TextInputEditText
+	    		zIndex="1"
+	    		android:padding="10dp"
+	            android:text="test ${testcase}"
+	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content" />			 
 	<#elseif myclass.localName == 'RadioGroup'>
 	<RadioButton	
@@ -968,7 +982,7 @@ android:background="#ff0000"
 
 <#macro getVisibilityMacro attrs>
 <#compress>
-<#if attrs.trimmedAttribute != 'visibility'>
+<#if attrs.trimmedAttribute != 'visibility' && !viewstub>
 android:visibility="${getVisibility(attrs)}"
 </#if>
 </#compress>	
@@ -983,6 +997,11 @@ android:visibility="${getVisibility(attrs)}"
 </#function>
 <#function getTestCases attrs>
 	<#assign array=[]>
+	
+	<#assign myarray=getTestCases_CoordinatorLayout(attrs, myclass.localName)>
+	<#if myarray?has_content>
+		<#return myarray>
+	</#if>
 	
 	<#assign myarray=getTestCases_TextView(attrs)>
 	<#if myarray?has_content>
@@ -1020,6 +1039,8 @@ android:visibility="${getVisibility(attrs)}"
 	
 	<#if attrs.type == 'dimensionsp'>
 		<#assign array = array + ["10sp"]>
+	<#elseif attrs.trimmedAttribute == 'contentView'>
+		<#assign array = array + ["@layout/listfooter"]>		
 	<#elseif attrs.trimmedAttribute == 'childXml'>
 		<#assign array = array + ["&lt;TextView text=&quot;test1234&quot;&gt;&lt;/TextView&gt;"]>		
 	<#elseif attrs.trimmedAttribute == 'content'>
@@ -1044,7 +1065,7 @@ android:visibility="${getVisibility(attrs)}"
 		<#assign array = array + ["0.5"]>	
 	<#elseif attrs.trimmedAttribute == 'layout_weight'>
 		<#assign array = array + ["1", "2"]>
-	<#elseif attrs.trimmedAttribute?starts_with("on")>
+	<#elseif attrs.trimmedAttribute?starts_with("on") || attrs.trimmedAttribute?ends_with('OnLongClick') || attrs.trimmedAttribute?ends_with('OnClick')>
 		<#assign array = array + [attrs.trimmedAttribute]>		
 	<#elseif attrs.type == 'dimensionsppxint'>
 		<#assign array = array + ["34px", "13sp"]>		
@@ -1052,7 +1073,7 @@ android:visibility="${getVisibility(attrs)}"
 		<#assign array = array + ["@xml/extra_data"]>
 	<#elseif attrs.type == 'dimensionspint'>
 		<#assign array = array + ["10sp"]>
-	<#elseif attrs.trimmedAttribute == 'textAppearance' || attrs.trimmedAttribute == 'switchTextAppearance'>
+	<#elseif attrs.trimmedAttribute?ends_with('TextAppearance') ||attrs.trimmedAttribute == 'textAppearance' || attrs.trimmedAttribute == 'switchTextAppearance' || attrs.type == 'style'>
 		<#assign array = array + ["@style/CustomTextStyle"]>		
 	<#elseif attrs.trimmedAttribute == 'fontFeatureSettings'>
 		<#assign array = array + ["afrc"]>
@@ -1188,7 +1209,11 @@ android:visibility="${getVisibility(attrs)}"
 	<#elseif attrs.trimmedAttribute == 'webTabIndex'>
 		<#assign array = array + ["1", "2"]>	
 	<#elseif attrs.trimmedAttribute == 'webOverflow'>
-		<#assign array = array + ["auto", "hidden"]>	
+		<#assign array = array + ["auto", "hidden"]>
+	<#elseif attrs.trimmedAttribute == 'dropDownAnchor'>	
+		<#assign array = array + ["@+id/dropDownAnchor0"]>	
+	<#elseif attrs.trimmedAttribute == 'completionHint'>
+		<#assign array = array + ["test"]>	
 	<#else>
 		<#assign array = array + [attrs.type]>
 	</#if>

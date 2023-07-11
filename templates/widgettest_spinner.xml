@@ -1,6 +1,6 @@
 <#macro getAdditinalAttrs_Spinner attrs name value id localname widgetname>
 <#compress>
-	<#if widgetname=='Spinner' || widgetname=='com.ashera.layout.MultiSelectionSpinner' || widgetname=='CCombo'>
+	<#if widgetname=='Spinner' || widgetname=='com.ashera.layout.MultiSelectionSpinner' || widgetname=='CCombo'  || widgetname=='AutoCompleteTextView'>
 	<#if attrs.trimmedAttribute == 'modelOptionTextPath'>
 		modelFor="let item in looptest.textlayout from testObj->view into loopvar as pathmap"
 		modelIdPath="id"
@@ -15,6 +15,10 @@
 	</#if>
 	<#if attrs.trimmedAttribute == 'prompt' ||  attrs.trimmedAttribute == 'onNothingSelected'>
 		android:spinnerMode="dialog"
+	</#if>
+	
+	<#if attrs.trimmedAttribute == 'completionHintView'>
+		android:completionHint="Lorem ipum test"
 	</#if>
 	</#if>
 </#compress>	
@@ -37,6 +41,11 @@
 		<#assign myarray = myarray + ["20,40"]>
 	</#if>
 	
+	<#if attrs.trimmedAttribute == 'completionHintView'>
+		<#assign myarray = myarray + ["@layout/completionhint"]>
+	</#if>
+	
+	
 	<#return myarray>
 </#function>
 
@@ -54,6 +63,10 @@
 	
 	<#if attrs.trimmedAttribute == 'selectedValues'>
 		<#assign myarray = myarray + ["'40,60'"]>
+	</#if>
+	
+	<#if attrs.trimmedAttribute == 'completionHintView'>
+		<#assign myarray = myarray + ["'@layout/completionhint'"]>
 	</#if>
 	<#return myarray>
 </#function>	

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
-        id="@packagename@"
+        id="@iospackagename@"
         version="1.0">
 
   <name>@featurename@</name>
@@ -11,7 +11,7 @@
   
   <platform name="ios">
     <config-file target="config.xml" parent="/widget">
-      <feature name="@featurename@">
+      <feature name="@iospackagename@">
         	<param name="ios-package" value="@featurename@" />
          	<param name="onload" value="true" />
       </feature>

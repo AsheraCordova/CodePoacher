@@ -5,6 +5,8 @@
 <#include "/templates/widgettest_datepicker.xml">
 <#include "/templates/widgettest_textview.xml">
 <#include "/templates/widgettest_progressbar.xml">
+<#include "/templates/widgettest_coordinatorlayout.xml">
+
 <#function getWidgetName>
 	<#if myclass.localName == 'layout'>
 		<#return 'Root'>
@@ -57,9 +59,16 @@ import {NavController, InjectController} from './navigation/NavController';
 		<#return myarray>
 	</#if>
 	
+	<#assign myarray=getTestCases_CoordinatorLayout_attrs(attrs, myclass.localName)>
+	<#if myarray?has_content>
+		<#return myarray>
+	</#if>
+	
 	<#assign array=[]> 
 	<#if attrs.type == 'dimensionsp'>
 		<#assign array = array + ["'20sp'"]>
+	<#elseif attrs.trimmedAttribute == 'anchor'>	
+		<#assign array = array + ["''"]>
 	<#elseif attrs.trimmedAttribute == 'childXml'>
 		<#assign array = array + ["'<TextView text=\"test1114\"></TextView>'"]>		
 	<#elseif attrs.trimmedAttribute == 'content'>
@@ -80,7 +89,7 @@ import {NavController, InjectController} from './navigation/NavController';
 		<#assign array = array + ["0.75"]>				
 	<#elseif attrs.trimmedAttribute == 'onEditorAction'>
 		<#assign array = array + ["'onEditorAction1'"]>	
-	<#elseif attrs.trimmedAttribute?starts_with("on")>
+	<#elseif attrs.trimmedAttribute?starts_with("on") || attrs.trimmedAttribute?ends_with('OnLongClick') || attrs.trimmedAttribute?ends_with('OnClick')>
 		<#assign array = array + ["'" + attrs.trimmedAttribute +"'"]>
 	<#elseif attrs.type == 'dimensionsppxint'>
 		<#assign array = array + ["'13sp'", "'34px'"]>				
@@ -88,7 +97,7 @@ import {NavController, InjectController} from './navigation/NavController';
 		<#assign array = array + ["'@xml/extra_data'"]>		
 	<#elseif attrs.type == 'dimensionspint'>
 		<#assign array = array + ["'20sp'"]>
-	<#elseif attrs.trimmedAttribute == 'textAppearance' || attrs.trimmedAttribute == 'switchTextAppearance'>
+	<#elseif attrs.trimmedAttribute?ends_with('TextAppearance') || attrs.trimmedAttribute == 'textAppearance' || attrs.trimmedAttribute == 'switchTextAppearance' || attrs.type == 'style'>
 		<#assign array = array + ["'@style/CustomTextStyle1'"]>		
 	<#elseif attrs.trimmedAttribute == 'fontFeatureSettings'>
 		<#assign array = array + ["'afrc'"]>	
@@ -246,6 +255,10 @@ import {NavController, InjectController} from './navigation/NavController';
 		<#assign array = array + ["''"]>
 	<#elseif attrs.trimmedAttribute == 'webOverflow'>
 		<#assign array = array + ["'auto'", "'hidden'"]>
+	<#elseif attrs.trimmedAttribute == 'completionHint'>
+		<#assign array = array + ["'test1'"]>		
+	<#elseif attrs.trimmedAttribute == 'dropDownAnchor'>	
+		<#assign array = array + ["'@+id/dropDownAnchor0'"]>		
 	<#else>
 		<#assign array = array + [attrs.type]>
 	</#if>
@@ -515,7 +528,7 @@ export default class ${getWidgetName()}Activity extends Fragment{
 	
 	    
     <#list allAttributes as attrs>
-	<#if attrs.trimmedAttribute?starts_with('on')>
+	<#if attrs.trimmedAttribute?starts_with('on') || attrs.trimmedAttribute?ends_with('OnClick') || attrs.trimmedAttribute?ends_with('OnLongClick')>
 	async ${attrs.trimmedAttribute}(obj:any) {		
 		<#if attrs.trimmedAttribute?starts_with('onDrag') || attrs.trimmedAttribute?starts_with('onTouch') ||  attrs.trimmedAttribute?starts_with('onScrollChange') || attrs.trimmedAttribute?starts_with('onChronometerTick')>
 		console.log("${attrs.trimmedAttribute}" + JSON.stringify(obj));

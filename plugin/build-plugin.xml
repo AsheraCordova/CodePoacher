@@ -7,6 +7,8 @@
 		<filter token="uniqueid" value="${uniqueid}" />
 		<filter token="featurename" value="${featurename}" />
 		<filter token="pluginDir" value="${pluginDir}" />
+		<filter token="pluginName" value="${pluginName}" />
+		<filter token="iospackagename" value="${iospackagename}" />
 		<filter token="name" value="${name}" />
 		<filter token="iospackageprefix" value="${iospackageprefix}" />
 	</filterset>

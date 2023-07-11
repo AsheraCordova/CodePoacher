@@ -54,6 +54,15 @@ public class ${myclass.widgetName} {
 		<#else>
 		ViewImpl.setAttribute(w, key, strValue, objValue, decorator);
 		</#if>
+		setMyAttribute(w, key, strValue, objValue, decorator);
+	}
+	
+	private static void setMyAttribute(IWidget w, WidgetAttribute key, String strValue, Object objValue, ILifeCycleDecorator decorator) {
+		ViewGroup viewGroup = ((ViewGroup) w.asWidget());
+		<#if process != 'android' && process != 'ios'>
+		${myclass.nativeClassName} ${myclass.varName} = (${myclass.nativeClassName}) w.asNativeWidget();
+		</#if>
+
 		<#if myclass.widgetAttributes?has_content>
 		switch (key.getAttributeName()) {
 		<#list myclass.widgetAttributes as attrs>

@@ -7,6 +7,8 @@
 #include "CGRectWrapper.h"
 #import "INativeWidget.h"
 #include "View.h"
+#include "IFragment.h"
+#include "EventBus.h"
 //end - imports
 
 @interface ${className} : ${parent_className}<INativeWidget>

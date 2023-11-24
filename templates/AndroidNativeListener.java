@@ -24,7 +24,6 @@ ${methodSignatureListener}{
 	    String commandType = (String)obj.get(EventExpressionParser.KEY_COMMAND_TYPE);
 		switch (commandType) {
 		case "+":
-		case ":":
 		    if (EventCommandFactory.hasCommand(commandName)) {
 		    	 <#if returnType != 'void'>Object commandResult = </#if>EventCommandFactory.getCommand(commandName).executeCommand(w, obj<#if paramsStr!=''>, </#if>${paramsStr});
 		    	 <#if returnType != 'void'>
@@ -33,10 +32,7 @@ ${methodSignatureListener}{
 		    	 }
 		    	 </#if>
 		    }
-		    if (commandType.equals(":")) {
-		    	<#if returnType=='void'>return;<#else>return result;</#if>
-		    }
-			
+
 			break;
 		default:
 			break;
@@ -49,7 +45,7 @@ ${methodSignatureListener}{
 		if (w.getModelUiToPojoEventIds() != null) {
 			com.ashera.layout.ViewImpl.refreshUiFromModel(w, w.getModelUiToPojoEventIds(), true);
 		}
-		if (strValue != null && !strValue.isEmpty()) {
+		if (strValue != null && !strValue.isEmpty() && !strValue.trim().startsWith("+")) {
 		    com.ashera.core.IActivity activity = (com.ashera.core.IActivity)w.getFragment().getRootActivity();
 		    activity.sendEventMessage(obj);
 		}

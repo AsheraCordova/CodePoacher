@@ -41,6 +41,9 @@
 		<@getAdditinalAttrs_CoordinatorLayout attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_CoordinatorLayout>
 		<@getAdditinalAttrs_TextInputLayout attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_TextInputLayout>
 		
+		<#if name != 'layoutDescription' && widgetname=='androidx.constraintlayout.motion.widget.MotionLayout'>
+		app:layoutDescription="@xml/motionlayout_test"
+        </#if>
 		<#if name != 'contentView' && widgetname=='com.ashera.layout.PopupWindow'>
 		contentView="@layout/listfooter"
         </#if>
@@ -532,7 +535,7 @@ android:background="#ff0000"
 		android:layout_width="${getChildWidth(attr)}"
 	 	android:layout_height="wrap_content"
 		android:text="Test1 ${testcase}"></RadioButton>		
-	<#elseif myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' && attr == 'layout_constrainedWidth'>    
+	<#elseif (myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' || myclass.group == 'androidx.constraintlayout.motion.widget.MotionLayout') && attr == 'layout_constrainedWidth'>    
 	    <TextView
 	            android:text="Hello this is an example with constraint width"
 	            android:layout_width="wrap_content"
@@ -550,7 +553,7 @@ android:background="#ff0000"
             app:layout_constraintGuide_end="100dp"
             android:id="@+id/guideline"
             android:orientation="vertical"/>
-	<#elseif myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' && attr == 'layout_constrainedHeight'>    
+	<#elseif (myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' || myclass.group == 'androidx.constraintlayout.motion.widget.MotionLayout') && attr == 'layout_constrainedHeight'>    
 	    <TextView
 	            android:text="Hello this is an example with constraint height sda asd adsa sad sad adas asd asd ads asd asdas dasdas dasd asdasd asdasda asd asda as"
 	            android:layout_width="wrap_content"
@@ -567,7 +570,7 @@ android:background="#ff0000"
             app:layout_constraintGuide_end="100dp"
             android:id="@+id/guideline"
             android:orientation="horizontal"/>
-	<#elseif myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' && attr?starts_with('layout_constraintGuide')>    
+	<#elseif (myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' || myclass.group == 'androidx.constraintlayout.motion.widget.MotionLayout') && attr?starts_with('layout_constraintGuide')>    
 	    <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -584,7 +587,7 @@ android:background="#ff0000"
 	            android:layout_marginTop="16dp"
 	            app:layout_constraintTop_toTopOf="parent" />	
 	            
-	<#elseif myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' && attr == 'layout_constraintVertical_weight'>
+	<#elseif (myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' || myclass.group == 'androidx.constraintlayout.motion.widget.MotionLayout') && attr == 'layout_constraintVertical_weight'>
 	    <TextView
 			app:layout_constraintVertical_weight="10"
 			app:layout_constraintTop_toTopOf="parent"
@@ -604,7 +607,7 @@ android:background="#ff0000"
 			android:layout_width="wrap_content"
 			android:layout_height="0dp"
 			android:text="Test 10"></TextView>	    
-	  <#elseif myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' && attr == 'layout_constraintHorizontal_weight'>
+	  <#elseif (myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' || myclass.group == 'androidx.constraintlayout.motion.widget.MotionLayout') && attr == 'layout_constraintHorizontal_weight'>
 	    <TextView
 			app:layout_constraintHorizontal_weight="10"
 			app:layout_constraintStart_toStartOf="parent"
@@ -624,7 +627,7 @@ android:background="#ff0000"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:text="Test 10"></TextView>
-	<#elseif myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' && attr == 'layout_constraintVertical_chainStyle'>
+	<#elseif (myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' || myclass.group == 'androidx.constraintlayout.motion.widget.MotionLayout') && attr == 'layout_constraintVertical_chainStyle'>
 		<androidx.constraintlayout.widget.ConstraintLayout 
 	    android:layout_width="match_parent"
 	    android:layout_height="300dp">
@@ -662,7 +665,7 @@ android:background="#ff0000"
 	        app:layout_constraintRight_toRightOf="parent"
 	        app:layout_constraintLeft_toLeftOf="parent" />
 		</androidx.constraintlayout.widget.ConstraintLayout>		
-	<#elseif myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' && attr == 'layout_constraintHorizontal_chainStyle'>
+	<#elseif (myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' || myclass.group == 'androidx.constraintlayout.motion.widget.MotionLayout') && attr == 'layout_constraintHorizontal_chainStyle'>
 		<androidx.constraintlayout.widget.ConstraintLayout
 	                android:layout_width="match_parent"
 	                android:layout_height="wrap_content" >
@@ -699,7 +702,7 @@ android:background="#ff0000"
 	                    app:layout_constraintTop_toTopOf="parent"
 	                    tools:text="TextView" />
 	            </androidx.constraintlayout.widget.ConstraintLayout>
-	<#elseif myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' && attr?starts_with('layout_gone')>
+	<#elseif (myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' || myclass.group == 'androidx.constraintlayout.motion.widget.MotionLayout') && attr?starts_with('layout_gone')>
  	<TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -752,7 +755,7 @@ android:background="#ff0000"
 	    <#if attr=='layout_goneMarginBottom'> app:layout_constraintBottom_toTopOf="@+id/textView3"</#if> 
 	    <#if attr=='layout_goneMarginEnd' || attr=='layout_goneMarginRight'> app:layout_constraintEnd_toStartOf="@+id/textView3"</#if>/>
 	
-	<#elseif myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' && attr?index_of('Left') == -1 && attr?index_of('Right') == -1
+	<#elseif (myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' || myclass.group == 'androidx.constraintlayout.motion.widget.MotionLayout') && attr?index_of('Left') == -1 && attr?index_of('Right') == -1
 			&& attr?index_of('Start') == -1 && attr?index_of('End') == -1 && attr?index_of('Top') == -1 && attr?index_of('Bottom') == -1>
 		<TextView	
 		    <@getChildAttribute alais=attr testcase=testcase namespace=namespace></@getChildAttribute>${'\n'}
@@ -761,10 +764,10 @@ android:background="#ff0000"
 			android:layout_width="${getChildWidth(attr)}"
 		 	android:layout_height="${getChildHeight(attr)}"
 			android:text="Test ${testcase}"></TextView>				
-	<#elseif myclass.localName == 'RelativeLayout' || myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout'>
+	<#elseif myclass.localName == 'RelativeLayout' || (myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' || myclass.group == 'androidx.constraintlayout.motion.widget.MotionLayout')>
 	<TextView
 	    widget-override-swt="StyledLabel"
-	    <#if myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' && attr!='layout_constraintTop_toTopOf'>
+	    <#if (myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' || myclass.group == 'androidx.constraintlayout.motion.widget.MotionLayout') && attr!='layout_constraintTop_toTopOf'>
 		app:layout_constraintTop_toTopOf="parent"
 		</#if>	
 	    android:layout_marginTop="30dp"
@@ -776,7 +779,7 @@ android:background="#ff0000"
 		android:text="Test 0 ${testcase}"></TextView>
 		<TextView		
 		    widget-override-swt="StyledLabel"	
-		<#if myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' && attr!='layout_constraintTop_toTopOf'>
+		<#if (myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' || myclass.group == 'androidx.constraintlayout.motion.widget.MotionLayout') && attr!='layout_constraintTop_toTopOf'>
 		app:layout_constraintTop_toTopOf="parent"
 		</#if>
 		android:layout_marginTop="40dp"   
@@ -794,7 +797,7 @@ android:background="#ff0000"
 	 	<#if myclass.localName == 'RelativeLayout'>
 	 	android:layout_toRightOf="@+id/text${(id * 2) + id + 1}"
 	 	</#if>
-	 	<#if myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout'>
+	 	<#if (myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' || myclass.group == 'androidx.constraintlayout.motion.widget.MotionLayout')>
 	 	app:layout_constraintTop_toTopOf="parent"
 	 	app:layout_constraintLeft_toRightOf="@+id/text${(id * 2) + id + 1}"
 	 	</#if>
@@ -1214,6 +1217,8 @@ android:visibility="${getVisibility(attrs)}"
 		<#assign array = array + ["@+id/dropDownAnchor0"]>	
 	<#elseif attrs.trimmedAttribute == 'completionHint'>
 		<#assign array = array + ["test"]>	
+	<#elseif attrs.trimmedAttribute == 'layoutDescription'>
+		<#assign array = array + ["@xml/motionlayout_test"]>		
 	<#else>
 		<#assign array = array + [attrs.type]>
 	</#if>
@@ -1494,7 +1499,7 @@ android:visibility="${getVisibility(attrs)}"
 			<@getWrapperParentStart></@getWrapperParentStart>			
 			<${getClassGroup()}
 	            	widget-override="${getWidgetOverrideName('')}"
-	                android:layout_width="${getSampleWidgetWidth(myclass.group)}"
+	                android:layout_width="${getSampleWidgetWidth(myclass.group)}"<#if myclass.group=='androidx.constraintlayout.motion.widget.MotionLayout'> app:layoutDescription="@xml/motionlayout_test"</#if>
 	                android:layout_height="${getSampleWidgetHeight(myclass.group)}"
 	                android:id="@+id/sampleWidget"><@getChildWidget myclass=myclass id=0 attr='' testcase=''></@getChildWidget></${getClassGroup()}>
 	         <@getWrapperParentEnd></@getWrapperParentEnd>

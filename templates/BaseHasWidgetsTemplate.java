@@ -501,7 +501,7 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
 		</#if>
 		if (id != null && !id.equals("")){
 			super.setId(id);
-			${myclass.varName}.setId(IdGenerator.getId(id));
+			${myclass.varName}.setId((int) quickConvert(id, "id"));
 		}
 	}
 	

@@ -296,11 +296,11 @@ public class ${myclass.widgetName} extends BaseWidget {
 		if (id != null && !id.equals("")){
 			super.setId(id);
 			<#if myclass.createDefault?contains("compositeWidget|")>
-			((View)compositeWidget.asWidget()).setId(IdGenerator.getId(id));
+			((View)compositeWidget.asWidget()).setId((int) quickConvert(id, "id"));
 			<#elseif process == 'swt' || process == 'web' || process == 'ios'>
-			<@getBaseWidgetClassVar myclass=myclass />.setId(IdGenerator.getId(id));
+			<@getBaseWidgetClassVar myclass=myclass />.setId((int) quickConvert(id, "id"));
 			<#else>			
-			${myclass.widgetClassVarName}.setId(IdGenerator.getId(id));
+			${myclass.widgetClassVarName}.setId((int) quickConvert(id, "id"));
 			</#if>
 		}
 	}

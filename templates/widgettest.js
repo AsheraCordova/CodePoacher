@@ -258,7 +258,9 @@ import {NavController, InjectController} from './navigation/NavController';
 	<#elseif attrs.trimmedAttribute == 'completionHint'>
 		<#assign array = array + ["'test1'"]>		
 	<#elseif attrs.trimmedAttribute == 'dropDownAnchor'>	
-		<#assign array = array + ["'@+id/dropDownAnchor0'"]>		
+		<#assign array = array + ["'@+id/dropDownAnchor0'"]>	
+	<#elseif attrs.trimmedAttribute == 'layoutDescription'>
+		<#assign array = array + ["'@xml/motionlayout_test'"]>
 	<#else>
 		<#assign array = array + [attrs.type]>
 	</#if>
@@ -316,7 +318,7 @@ export default class ${getWidgetName()}Activity extends Fragment{
 				<#if attrs.trimmedAttribute?starts_with("layout_")>
 				let ${attrs.trimmedAttribute}${x}Child0LayoutParams: ${getWidgetName()}_LayoutParams = new ${getWidgetName()}_LayoutParams();
 				${attrs.trimmedAttribute}${x}Child0LayoutParams.${attrs.setter}(${testcase});			
-				this.${attrs.trimmedAttribute}${x}Child0.setLayoutParams(${attrs.trimmedAttribute}${x}Child0LayoutParams);
+				this.${attrs.trimmedAttribute}${x}Child0.setLayoutParams(${attrs.trimmedAttribute}${x}Child0LayoutParams);<#if myclass.group=='androidx.constraintlayout.motion.widget.MotionLayout'>this.${attrs.trimmedAttribute}${x}.setLayoutDescription("@xml/motionlayout_test");</#if>
 				await this.executeCommand(this.${attrs.trimmedAttribute}${x}Child0);
 				<#elseif attrs.methodParams?has_content>
 				this.${attrs.trimmedAttribute}${x}.reset().${attrs.setter}(<#list attrs.methodParams as param>${getTestCases(param, attrs.trimmedAttribute)[0]}<#if param?has_next>,</#if></#list>);

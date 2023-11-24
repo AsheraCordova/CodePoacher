@@ -442,4 +442,19 @@
         	${myclass.widgetName}.this.scrollTo(x, y);
         }
         </#if>
+        
+        <#list ['0', '1', '2', '3', '4'] as i>
+        	public void state${i}() {
+        		ViewImpl.state(${myclass.widgetName}.this, ${i});
+        	}
+      </#list>
+                        
+        public void stateYes() {
+        	ViewImpl.stateYes(${myclass.widgetName}.this);
+        	
+        }
+        
+        public void stateNo() {
+        	ViewImpl.stateNo(${myclass.widgetName}.this);
+        }
 	}

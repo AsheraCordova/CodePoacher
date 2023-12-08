@@ -6,6 +6,7 @@
 <#include "/templates/widgettest_textview.xml">
 <#include "/templates/widgettest_progressbar.xml">
 <#include "/templates/widgettest_coordinatorlayout.xml">
+<#include "/templates/widgettest_carousel.xml">
 
 <#function getWidgetName>
 	<#if myclass.localName == 'layout'>
@@ -29,6 +30,10 @@ import {NavController, InjectController} from './navigation/NavController';
 // end - imports
 <#function getTestCases attrs parentAttribute=''>
 	<#assign myarray=getTestCases_attrs_TextView(attrs)>
+	<#if myarray?has_content>
+		<#return myarray>
+	</#if>
+	<#assign myarray=getTestCases_Carousel_attrs(attrs, myclass.localName)>
 	<#if myarray?has_content>
 		<#return myarray>
 	</#if>
@@ -261,6 +266,13 @@ import {NavController, InjectController} from './navigation/NavController';
 		<#assign array = array + ["'@+id/dropDownAnchor0'"]>	
 	<#elseif attrs.trimmedAttribute == 'layoutDescription'>
 		<#assign array = array + ["'@xml/motionlayout_test'"]>
+	<#elseif attrs.type= 'id'>
+		<#assign array = array + ["'@+id/text1'"]>			
+	<#elseif attrs.trimmedAttribute == 'dataKey' || attrs.trimmedAttribute == 'childDataKey'>
+		<#assign array = array + ["'test'"]>
+	<#elseif attrs.trimmedAttribute == 'dataScopeKey' || attrs.trimmedAttribute == 'childDataScopeKey'>
+		<#assign array = array + ["'local'"]>	
+		
 	<#else>
 		<#assign array = array + [attrs.type]>
 	</#if>

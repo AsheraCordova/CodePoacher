@@ -1,0 +1,264 @@
+<#macro getAdditinalAttrs_Carousel attrs name value id localname widgetname>
+<#compress>
+<#if widgetname == 'androidx.constraintlayout.helper.widget.Carousel'>		
+modelParam="let data = viewpagers from testObj->view into view as list"
+<#if name != 'carousel_forwardTransition'>
+app:carousel_forwardTransition="@+id/n__forward"
+</#if>
+<#if name != 'carousel_backwardTransition'>
+app:carousel_backwardTransition="@+id/n__backward"
+</#if>
+<#if name != 'carousel_previousState'>
+app:carousel_previousState="@+id/n__previous"
+</#if>
+<#if name != 'carousel_nextState'>
+app:carousel_nextState="@+id/n__next"
+</#if>
+<#if name != 'carousel_firstView'>
+app:carousel_firstView="@+id/n__textView4"
+</#if>
+<#if name != 'constraint_referenced_ids'>
+app:constraint_referenced_ids="n__textView0,n__textView1,n__textView2,n__textView3,n__textView4,n__textView5,n__textView6,n__textView7,n__textView8"
+</#if>
+</#if>
+</#compress>	
+</#macro>         
+
+
+<#function getTestCases_Carousel attrs widgetname>
+	<#assign myarray=[]> 
+	<#if widgetname == 'androidx.constraintlayout.helper.widget.Carousel'>
+		<#if attrs.trimmedAttribute == 'carousel_forwardTransition'>
+		<#assign myarray = myarray + ["@+id/n__forward"]>
+		</#if>
+		<#if attrs.trimmedAttribute == 'carousel_backwardTransition'>
+		<#assign myarray = myarray + ["@+id/n__backward"]>
+		</#if>
+		<#if attrs.trimmedAttribute == 'carousel_previousState'>
+		<#assign myarray = myarray + ["@+id/n__previous"]>
+		</#if>
+		<#if attrs.trimmedAttribute == 'carousel_nextState'>
+		<#assign myarray = myarray + ["@+id/n__next"]>
+		</#if>
+		<#if attrs.trimmedAttribute == 'carousel_firstView'>
+		<#assign myarray = myarray + ["@+id/n__textView0"]>
+		</#if>
+		<#if attrs.trimmedAttribute == 'constraint_referenced_ids'>
+		<#assign myarray = myarray + ["n__textView0,n__textView1,n__textView2,n__textView3,n__textView4,n__textView5,n__textView6,n__textView7,n__textView8"]>
+		</#if>
+	</#if>
+	<#return myarray>
+</#function>
+
+<#function getTestCases_Carousel_attrs attrs widgetname>
+	<#assign myarray=[]> 
+		<#if widgetname == 'androidx.constraintlayout.helper.widget.Carousel'>
+		<#if attrs.trimmedAttribute == 'carousel_forwardTransition'>
+		<#assign myarray = myarray + ["'@+id/n__forward'"]>
+		</#if>
+		<#if attrs.trimmedAttribute == 'carousel_backwardTransition'>
+		<#assign myarray = myarray + ["'@+id/n__backward'"]>
+		</#if>
+		<#if attrs.trimmedAttribute == 'carousel_previousState'>
+		<#assign myarray = myarray + ["'@+id/n__previous'"]>
+		</#if>
+		<#if attrs.trimmedAttribute == 'carousel_nextState'>
+		<#assign myarray = myarray + ["'@+id/n__next'"]>
+		</#if>
+		<#if attrs.trimmedAttribute == 'carousel_firstView'>
+		<#assign myarray = myarray + ["'@+id/n__textView0'"]>
+		</#if>
+		<#if attrs.trimmedAttribute == 'constraint_referenced_ids'>
+		<#assign myarray = myarray + ["'n__textView0,n__textView1,n__textView2,n__textView3,n__textView4,n__textView5,n__textView6,n__textView7,n__textView8'"]>
+		</#if>
+	</#if>
+	<#return myarray>
+</#function>	
+
+<#macro getWrapperParentStart_Carousel myclass>
+<#if myclass.group == 'androidx.constraintlayout.helper.widget.Carousel'>
+	<androidx.constraintlayout.motion.widget.MotionLayout 
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    android:background="#0C355A"
+    android:orientation="vertical"
+    app:layoutDescription="@xml/demo_060_carousel_scene">
+
+    <TextView
+        android:id="@+id/n__textView0"
+        android:layout_width="100dp"
+        android:layout_height="130dp"
+        android:background="#F0F"
+        android:gravity="center"
+        android:rotation="-60"
+        android:text="#0"
+        android:textColor="#FFF"
+        android:textSize="36sp"
+        android:elevation="0dp"
+        app:layout_constraintCircle="@+id/n__center"
+        app:layout_constraintCircleAngle="300"
+        app:layout_constraintCircleRadius="160dp" />
+
+    <TextView
+        android:id="@+id/n__textView1"
+        android:layout_width="100dp"
+        android:layout_height="130dp"
+        android:background="#F0F"
+        android:gravity="center"
+        android:rotation="-45"
+        android:text="#1"
+        android:textColor="#FFF"
+        android:textSize="36sp"
+        android:elevation="2dp"
+        app:layout_constraintCircle="@+id/n__center"
+        app:layout_constraintCircleAngle="315"
+        app:layout_constraintCircleRadius="160dp" />
+
+    <TextView
+        android:id="@+id/n__textView2"
+        android:layout_width="100dp"
+        android:layout_height="130dp"
+        android:background="#C869C8"
+        android:gravity="center"
+        android:rotation="-30"
+        android:text="#2"
+        android:textColor="#FFF"
+        android:textSize="36sp"
+        android:elevation="4dp"
+        app:layout_constraintCircle="@+id/n__center"
+        app:layout_constraintCircleAngle="330"
+        app:layout_constraintCircleRadius="160dp" />
+
+    <TextView
+        android:id="@+id/n__textView3"
+        android:layout_width="100dp"
+        android:layout_height="130dp"
+        android:background="#A664A6"
+        android:elevation="6dp"
+        android:gravity="center"
+        android:rotation="-15"
+        android:text="#3"
+        android:textColor="#FFF"
+        android:textSize="36sp"
+        app:layout_constraintCircle="@+id/n__center"
+        app:layout_constraintCircleAngle="345"
+        app:layout_constraintCircleRadius="160dp"
+        tools:layout_editor_absoluteX="136dp"
+        tools:layout_editor_absoluteY="116dp" />
+
+    <TextView
+        android:id="@+id/n__textView4"
+        android:layout_width="140dp"
+        android:layout_height="180dp"
+        android:background="#874A87"
+        android:gravity="center"
+        android:rotation="0"
+        android:text="#4"
+        android:textColor="#FFF"
+        android:textSize="36sp"
+        android:elevation="10dp"
+        app:layout_constraintCircle="@+id/n__center"
+        app:layout_constraintCircleAngle="0"
+        app:layout_constraintCircleRadius="160dp" />
+
+    <TextView
+        android:id="@+id/n__textView5"
+        android:layout_width="100dp"
+        android:layout_height="130dp"
+        android:background="#BF70BF"
+        android:gravity="center"
+        android:rotation="15"
+        android:text="#5"
+        android:textColor="#FFF"
+        android:textSize="36sp"
+        android:elevation="6dp"
+        app:layout_constraintCircle="@+id/n__center"
+        app:layout_constraintCircleAngle="15"
+        app:layout_constraintCircleRadius="160dp" />
+
+    <TextView
+        android:id="@+id/n__textView6"
+        android:layout_width="100dp"
+        android:layout_height="130dp"
+        android:background="#EDA4ED"
+        android:gravity="center"
+        android:rotation="30"
+        android:text="#6"
+        android:textColor="#FFF"
+        android:textSize="36sp"
+        android:elevation="4dp"
+        app:layout_constraintCircle="@+id/n__center"
+        app:layout_constraintCircleAngle="30"
+        app:layout_constraintCircleRadius="160dp" />
+
+
+    <TextView
+        android:id="@+id/n__textView7"
+        android:layout_width="100dp"
+        android:layout_height="130dp"
+        android:background="#F8C1F8"
+        android:gravity="center"
+        android:rotation="45"
+        android:text="#7"
+        android:textColor="#FFF"
+        android:textSize="36sp"
+        android:elevation="2dp"
+        app:layout_constraintCircle="@+id/n__center"
+        app:layout_constraintCircleAngle="45"
+        app:layout_constraintCircleRadius="160dp" />
+
+    <TextView
+        android:id="@+id/n__textView8"
+        android:layout_width="100dp"
+        android:layout_height="130dp"
+        android:background="#F8C1F8"
+        android:gravity="center"
+        android:rotation="60"
+        android:text="#8"
+        android:textColor="#FFF"
+        android:textSize="36sp"
+        android:elevation="0dp"
+        app:layout_constraintCircle="@+id/n__center"
+        app:layout_constraintCircleAngle="60"
+        app:layout_constraintCircleRadius="160dp" />
+
+    <View
+        android:id="@+id/n__center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/n__label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFF"
+        android:textSize="36sp"
+        android:text="#1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/n__center"
+        />
+
+    <Button
+        android:id="@+id/n__button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="Go to last item"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+</#if>
+</#macro>
+
+<#macro getWrapperParentEnd_Carousel myclass>
+<#if myclass.group == 'androidx.constraintlayout.helper.widget.Carousel'>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+</#if>
+</#macro>

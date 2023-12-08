@@ -2,6 +2,21 @@
 	public class <@getWidgetClassNameShortName myclass=myclass></@getWidgetClassNameShortName>Ext extends <@getWidgetClassName myclass=myclass></@getWidgetClassName> implements ILifeCycleDecorator<#if !myclass.createDefault?contains("maxDimensionSupported|")>, com.ashera.widget.IMaxDimension</#if>{
 		private MeasureEvent measureFinished = new MeasureEvent();
 		private OnLayoutEvent onLayoutEvent = new OnLayoutEvent();
+		public IWidget getWidget() {
+			return ${myclass.widgetName}.this;
+		}
+		<#if myclass.createDefault?contains("onAttachedToWindow|")>
+		@Override
+		protected void onAttachedToWindow() {
+			try {
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+					super.onAttachedToWindow();
+				}
+			} catch (Exception e) {
+				// ignore excepiton
+			}
+		}
+		</#if>
 		<#if !myclass.createDefault?contains("maxDimensionSupported|")>
 		private int mMaxWidth = -1;
 		private int mMaxHeight = -1;

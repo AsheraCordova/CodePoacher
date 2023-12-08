@@ -8,6 +8,7 @@
 <#include "/templates/widgettest_progressbar.xml">
 <#include "/templates/widgettest_coordinatorlayout.xml">
 <#include "/templates/widgettest_textinputlayout.xml">
+<#include "/templates/widgettest_carousel.xml">
 <#macro getName name namespace=''>
 <#compress>
 	<#if name?starts_with("swt") || name?starts_with("ios")>
@@ -40,7 +41,8 @@
 		<@getAdditinalAttrs_ProgressBar attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_ProgressBar>
 		<@getAdditinalAttrs_CoordinatorLayout attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_CoordinatorLayout>
 		<@getAdditinalAttrs_TextInputLayout attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_TextInputLayout>
-		
+		<@getAdditinalAttrs_Carousel attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_Carousel>
+
 		<#if name != 'layoutDescription' && widgetname=='androidx.constraintlayout.motion.widget.MotionLayout'>
 		app:layoutDescription="@xml/motionlayout_test"
         </#if>
@@ -1001,6 +1003,10 @@ android:visibility="${getVisibility(attrs)}"
 <#function getTestCases attrs>
 	<#assign array=[]>
 	
+	<#assign myarray=getTestCases_Carousel(attrs, myclass.localName)>
+	<#if myarray?has_content>
+		<#return myarray>
+	</#if>
 	<#assign myarray=getTestCases_CoordinatorLayout(attrs, myclass.localName)>
 	<#if myarray?has_content>
 		<#return myarray>
@@ -1218,7 +1224,13 @@ android:visibility="${getVisibility(attrs)}"
 	<#elseif attrs.trimmedAttribute == 'completionHint'>
 		<#assign array = array + ["test"]>	
 	<#elseif attrs.trimmedAttribute == 'layoutDescription'>
-		<#assign array = array + ["@xml/motionlayout_test"]>		
+		<#assign array = array + ["@xml/motionlayout_test"]>
+	<#elseif attrs.trimmedAttribute == 'dataKey' || attrs.trimmedAttribute == 'childDataKey'>
+		<#assign array = array + ["test"]>
+	<#elseif attrs.trimmedAttribute == 'dataScopeKey' || attrs.trimmedAttribute == 'childDataScopeKey'>
+		<#assign array = array + ["local"]>	
+	<#elseif attrs.type= 'id'>
+		<#assign array = array + ["@+id/text1"]>			
 	<#else>
 		<#assign array = array + [attrs.type]>
 	</#if>
@@ -1243,12 +1255,15 @@ android:visibility="${getVisibility(attrs)}"
 	<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="200dp">
 </#if>
 
+<@getWrapperParentStart_Carousel myclass=myclass></@getWrapperParentStart_Carousel>
+
 </#macro>
 
 <#macro getWrapperParentEnd name=''>
 <#if myclass.group == 'TableRow'>
 	</TableLayout>
 </#if>
+<@getWrapperParentEnd_Carousel myclass=myclass></@getWrapperParentEnd_Carousel>
 <#if myclass.group == 'androidx.constraintlayout.widget.Guideline'>
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </#if>

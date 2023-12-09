@@ -7,7 +7,7 @@
 		}
 		<#if myclass.createDefault?contains("onAttachedToWindow|")>
 		@Override
-		protected void onAttachedToWindow() {
+		public void onAttachedToWindow() {
 			try {
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
 					super.onAttachedToWindow();

@@ -82,6 +82,7 @@ app:constraint_referenced_ids="n__textView0,n__textView1,n__textView2,n__textVie
     android:layout_height="500dp"
     android:background="#0C355A"
     android:orientation="vertical"
+    android:visibility="gone"
     app:layoutDescription="@xml/demo_060_carousel_scene">
 
     <TextView

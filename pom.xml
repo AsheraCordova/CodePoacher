@@ -28,4 +28,19 @@
 			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
+	
+	<repositories>
+		<repository>
+			<id>ashera-github-java-repo</id>
+			<url>https://raw.githubusercontent.com/AsheraCordova/mvn-ashera-java-repo/master/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
 </project>

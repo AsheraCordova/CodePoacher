@@ -59,6 +59,13 @@
 			create-attr-0="enableFeatures"
 			enableFeatures="UIImageRenderingModeAlwaysTemplate"
 		</#if>	
+		
+		<#if name == 'startAnimator' || name == 'endAnimator' || name?starts_with("onAnimation") || name == 'animatorXml'>
+			<#if name != 'animatorXml'>animatorXml="@animator/sample_animator"</#if>
+			<#if name != 'startAnimator'>
+			startAnimator="true"
+			</#if>	
+		</#if>
 	
 	<#if (name == 'maxWidth' || name == 'maxHeight') && localname=='View'>
 		android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
@@ -1228,7 +1235,9 @@ android:visibility="${getVisibility(attrs)}"
 	<#elseif attrs.trimmedAttribute == 'dataKey' || attrs.trimmedAttribute == 'childDataKey'>
 		<#assign array = array + ["test"]>
 	<#elseif attrs.trimmedAttribute == 'dataScopeKey' || attrs.trimmedAttribute == 'childDataScopeKey'>
-		<#assign array = array + ["local"]>	
+		<#assign array = array + ["local"]>
+	<#elseif attrs.trimmedAttribute == 'animatorXml'>
+		<#assign array = array + ["@animator/sample_animator"]>
 	<#elseif attrs.type= 'id'>
 		<#assign array = array + ["@+id/text1"]>			
 	<#else>
@@ -1409,6 +1418,10 @@ android:visibility="${getVisibility(attrs)}"
 	
 	<#if myclass.group == 'View' && (name?contains('maxWidth') || name?contains('maxHeight'))>
 		<#return 'TextView'>
+	</#if>	
+	
+	<#if process == "swt" && myclass.group == 'View' && (name == 'scaleX' || name == 'scaleY' || name == 'scale' || name == 'rotationX'|| name == 'rotationY'|| name == 'rotation')>
+	<#return 'CLabel'>
 	</#if>	
 	
 	<#return myclass.localName>

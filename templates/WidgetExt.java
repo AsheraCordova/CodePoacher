@@ -301,6 +301,26 @@
 		}
 		@Override
 		public void setMyAttribute(String name, Object value) {
+			if (name.equals("state0")) {
+				setState0(value);
+				return;
+			}
+			if (name.equals("state1")) {
+				setState1(value);
+				return;
+			}
+			if (name.equals("state2")) {
+				setState2(value);
+				return;
+			}
+			if (name.equals("state3")) {
+				setState3(value);
+				return;
+			}
+			if (name.equals("state4")) {
+				setState4(value);
+				return;
+			}
 			${myclass.widgetName}.this.setAttribute(name, value, true);
 		}
         <#if !myclass.createDefault?contains("skipSetVisibility|")>
@@ -458,6 +478,32 @@
         }
         </#if>
         
+        <#list ['0', '1', '2', '3', '4'] as i>
+        <#if process == 'android'>
+    	public void setState${i}(float value) {
+    		ViewImpl.setState(${myclass.widgetName}.this, ${i}, value);
+    	}
+    	public void setState${i}(int value) {
+    		ViewImpl.setState(${myclass.widgetName}.this, ${i}, value);
+    	}
+    	public void setState${i}(double value) {
+    		ViewImpl.setState(${myclass.widgetName}.this, ${i}, value);
+    	}
+    	
+    	public void setState${i}(Float value) {
+    		ViewImpl.setState(${myclass.widgetName}.this, ${i}, value);
+    	}
+    	public void setState${i}(Integer value) {
+    		ViewImpl.setState(${myclass.widgetName}.this, ${i}, value);
+    	}
+    	public void setState${i}(Double value) {
+    		ViewImpl.setState(${myclass.widgetName}.this, ${i}, value);
+    	}
+    	</#if>
+    	public void setState${i}(Object value) {
+    		ViewImpl.setState(${myclass.widgetName}.this, ${i}, value);
+    	}
+    	</#list>
         <#list ['0', '1', '2', '3', '4'] as i>
         	public void state${i}() {
         		ViewImpl.state(${myclass.widgetName}.this, ${i});

@@ -272,7 +272,8 @@ import {NavController, InjectController} from './navigation/NavController';
 		<#assign array = array + ["'test'"]>
 	<#elseif attrs.trimmedAttribute == 'dataScopeKey' || attrs.trimmedAttribute == 'childDataScopeKey'>
 		<#assign array = array + ["'local'"]>	
-		
+	<#elseif attrs.trimmedAttribute == 'animatorXml'>
+		<#assign array = array + ["'@animator/sample_animator'"]>		
 	<#else>
 		<#assign array = array + [attrs.type]>
 	</#if>

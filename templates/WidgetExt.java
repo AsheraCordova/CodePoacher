@@ -518,4 +518,12 @@
         public void stateNo() {
         	ViewImpl.stateNo(${myclass.widgetName}.this);
         }
+     
+        <#if viewgroup && (process == 'swt' || process == 'ios' || process == 'web')>
+		@Override
+		public void endViewTransition(r.android.view.View view) {
+			super.endViewTransition(view);
+			runBufferedRunnables();
+		}
+		</#if>
 	}

@@ -368,9 +368,13 @@ public class ${myclass.widgetName} extends BaseWidget {
     		</#if> 
     	}
     }
-    
+    <#if process == 'swt'>
+	public boolean isWidgetDisposed() {
+		return ${myclass.nativeClassVarName}.isDisposed();
+	}
+	</#if>
     <#include "/templates/WidgetBuilderTemplate.java">
-    
+	
     <#if myclass.createDefault?contains("simpleWrapableView|")>
     private SimpleWrapableView simpleWrapableView;
     

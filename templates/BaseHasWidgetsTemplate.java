@@ -207,7 +207,7 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
 		boolean remove = super.remove(w);
 		${myclass.varName}.removeView((View) w.asWidget());
 		 <#if process == 'swt' || process == 'ios' || process == 'web'>
-         ViewGroupImpl.nativeRemoveView(w);            
+		 nativeRemoveView(w);            
          </#if>
 		return remove;
 	}
@@ -220,12 +220,24 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
         if (index + 1 <= ${myclass.varName}.getChildCount()) {
             ${myclass.varName}.removeViewAt(index);
             <#if process == 'swt' || process == 'ios' || process == 'web'>
-            ViewGroupImpl.nativeRemoveView(widget);            
+            nativeRemoveView(widget);
             </#if>
         }    
         return remove;
     }
 	</#if>
+	
+	private void nativeRemoveView(IWidget widget) {
+		r.android.animation.LayoutTransition layoutTransition = ${myclass.varName}.getLayoutTransition();
+		if (layoutTransition != null && (
+				layoutTransition.isTransitionTypeEnabled(r.android.animation.LayoutTransition.CHANGE_DISAPPEARING) ||
+				layoutTransition.isTransitionTypeEnabled(r.android.animation.LayoutTransition.DISAPPEARING)
+				)) {
+			addToBufferedRunnables(() -> ViewGroupImpl.nativeRemoveView(widget));          
+		} else {
+			ViewGroupImpl.nativeRemoveView(widget);
+		}
+	}
 	
 	@Override
 	public void add(IWidget w, int index) {<#if myclass.createDefault?contains("preAdd|")>if (preAdd(w, index)) {return;}</#if>
@@ -454,6 +466,9 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
         pane = new org.eclipse.swt.widgets.Composite((org.eclipse.swt.widgets.Composite)ViewImpl.getParent(this), getStyle(params, fragment));
         ((org.eclipse.swt.widgets.Composite)pane).setLayout(new org.eclipse.nebula.widgets.layout.AbsoluteLayout());
     }
+    public boolean isWidgetDisposed() {
+		return ((org.eclipse.swt.widgets.Control) pane).isDisposed();
+	}
     </#if>
     <#if process == 'web'>
     private void nativeCreate(Map<String, Object> params) {

@@ -226,7 +226,8 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
         return remove;
     }
 	</#if>
-	
+
+	<#if process == 'swt' || process == 'ios' || process == 'web'>
 	private void nativeRemoveView(IWidget widget) {
 		r.android.animation.LayoutTransition layoutTransition = ${myclass.varName}.getLayoutTransition();
 		if (layoutTransition != null && (
@@ -238,6 +239,7 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
 			ViewGroupImpl.nativeRemoveView(widget);
 		}
 	}
+	</#if>
 	
 	@Override
 	public void add(IWidget w, int index) {<#if myclass.createDefault?contains("preAdd|")>if (preAdd(w, index)) {return;}</#if>

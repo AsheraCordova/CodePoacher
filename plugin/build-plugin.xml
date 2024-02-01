@@ -10,6 +10,7 @@
 		<filter token="pluginName" value="${pluginName}" />
 		<filter token="iospackagename" value="${iospackagename}" />
 		<filter token="name" value="${name}" />
+		<filter token="os" value="${os}" />
 		<filter token="iospackageprefix" value="${iospackageprefix}" />
 	</filterset>
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties">

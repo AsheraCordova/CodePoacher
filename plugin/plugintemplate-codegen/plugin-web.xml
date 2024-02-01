@@ -16,7 +16,7 @@
         <param name="onload" value="true" />
       </feature>
     </config-file>
-
+	<framework src="core.gradle" custom="true" type="gradleReference" />
    	 <!-- start src -->
      <!-- src end -->
      <!-- start res -->

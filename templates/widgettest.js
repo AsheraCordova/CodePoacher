@@ -275,7 +275,13 @@ import {NavController, InjectController} from './navigation/NavController';
 	<#elseif attrs.trimmedAttribute == 'animatorXml'>
 		<#assign array = array + ["'@animator/sample_animator'"]>
 	<#elseif attrs.trimmedAttribute == 'layout_scrollInterpolator'>
-		<#assign array = array + ["'@anim/sample_interpolator'"]>		
+		<#assign array = array + ["'@anim/sample_interpolator'"]>
+	<#elseif attrs.trimmedAttribute == 'filter' || attrs.trimmedAttribute == 'filterId'>		
+		<#assign array = array + ["'test'"]>
+	<#elseif attrs.trimmedAttribute == 'filterQueryGetPath' || attrs.trimmedAttribute == 'filterQueryStorePath'>
+		<#assign array = array + ["'query->view'"]>		
+	<#elseif attrs.trimmedAttribute == 'searchview_attributes'>
+		<#assign array = array + ["'entries: @array/autosize_text_sizes'"]>			
 	<#else>
 		<#assign array = array + [attrs.type]>
 	</#if>

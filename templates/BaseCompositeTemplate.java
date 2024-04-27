@@ -90,7 +90,7 @@ public class ${myclass.widgetName} extends ${myclass.baseClass} {
     @Override
     public void setAttribute(WidgetAttribute key, String strValue,
             Object objValue, ILifeCycleDecorator decorator) {
-        <#if (myclass.baseClass?has_content)>
+    	<#if myclass.createDefault?contains("preSetAttribute|")>objValue = preSetAttribute(key, strValue, objValue, decorator);</#if><#if (myclass.baseClass?has_content)>
         super.setAttribute(key, strValue, objValue, decorator);
         </#if>
         Object nativeWidget = asNativeWidget();

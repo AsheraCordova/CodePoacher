@@ -187,18 +187,19 @@ import {MotionEvent} from '../../app/MotionEvent';
 import {DragEvent} from '../../app/DragEvent';
 import {KeyEvent} from '../../app/KeyEvent';
 import { ScopedObject } from '../../app/ScopedObject';
+import { Mixin, decorate } from 'ts-mixer';
 
 <#list myclass.allAttributes as attrs>
 <#compress>
 <#if attrs.methodParams?has_content && !(attrs.javascriptWrapperClass??)>
 export class ${myclass.widgetName}_${attrs.trimmedAttribute} {
 <#list attrs.methodParams as param>
-	@Expose({ name: "${param.trimmedAttribute}" })
+	@decorate(Expose({ name: "${param.trimmedAttribute}" }))
 	<#if (param.converterType?? && param.converterType == 'bitflag')>
-	@Transform(({value, obj, type}) => TransformerFactory.getInstance().transform(value, obj, type, "${param.type}"))
+	@decorate(Transform(({value, obj, type}) => TransformerFactory.getInstance().transform(value, obj, type, "${param.type}")))
 	</#if>
 	<#if (param.type?? && param.type == 'gravity')>
-	@Transform(({value, obj, type}) => TransformerFactory.getInstance().transform(value, obj, type, "gravity"))
+	@decorate(Transform(({value, obj, type}) => TransformerFactory.getInstance().transform(value, obj, type, "gravity")))
 	</#if>
 	${param.attributeForTs}!:<@getTypeScriptType attrs=param />;
 </#list>
@@ -235,19 +236,19 @@ export abstract class ${myclass.widgetName}<T> extends ${myclass.widgetSuperClas
     }	
 	<#list myclass.widgetAttributes as attrs>
 	<#if attrs.attributeForTs != 'id' && !attrs.codeExtensionOnly>
-	@Type(() => CommandAttr)
-	@Expose({ name: "${attrs.trimmedAttribute}" })
+	@decorate(Type(() => CommandAttr))
+	@decorate(Expose({ name: "${attrs.trimmedAttribute}" }))
 	${attrs.attributeForTs}!:CommandAttr<<@getTypeScriptType attrs=attrs></@getTypeScriptType><#if attrs.methodParams?has_content && attrs.javascriptWrapperClass??>|<@getTypeScriptType attrs=attrs></@getTypeScriptType>[]</#if>>| undefined;
 	</#if>
 	</#list>
 
-	@Exclude()
+	@decorate(Exclude())
 	protected thisPointer: T;	
 	protected abstract getThisPointer(): T;
 	<#if myclass.widgetName == 'ViewImpl'>
-	@Exclude()
+	@decorate(Exclude())
 	protected orderGet: number = 0;
-	@Exclude()
+	@decorate(Exclude())
     protected orderSet: number = 0;
     protected flush = false;
 	public markForReset() {
@@ -279,7 +280,7 @@ export abstract class ${myclass.widgetName}<T> extends ${myclass.widgetSuperClas
 	id: string;
 	paths: string[];
 	event: string;
-	@Expose({ name: "layoutParams" })
+	@decorate(Expose({ name: "layoutParams" }))
 	layoutParams: any;
 	constructor(id: string, paths: string[], event: string) {		
 		this.id = id;
@@ -321,18 +322,18 @@ export abstract class ${myclass.widgetName}<T> extends ${myclass.widgetSuperClas
 export abstract class ${myclass.widgetName}_LayoutParams<T> <#if myclass.widgetName != 'ViewGroupImpl'>extends ${myclass.widgetSuperClass}_LayoutParams<T></#if> {
 	<#list myclass.layoutAttributes as attrs>
 	<#if attrs.attributeForTs != 'id'>
-	@Type(() => CommandAttr)
-	@Expose({ name: "${attrs.trimmedAttribute}" })
+	@decorate(Type(() => CommandAttr))
+	@decorate(Expose({ name: "${attrs.trimmedAttribute}" }))
 	${attrs.attributeForTs}!:CommandAttr<<@getTypeScriptType attrs=attrs></@getTypeScriptType>>| undefined;
 	</#if>
 	</#list>
-	@Exclude()
+	@decorate(Exclude())
 	protected thisPointer: T;	
 	protected abstract getThisPointer(): T;
 	<#if myclass.widgetName == 'ViewGroupImpl'>
-	@Exclude()
+	@decorate(Exclude())
 	protected orderGet: number = 0;
-	@Exclude()
+	@decorate(Exclude())
     protected orderSet: number = 0;
 	</#if>
 	reset() : T {	

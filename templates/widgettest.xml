@@ -9,6 +9,7 @@
 <#include "/templates/widgettest_coordinatorlayout.xml">
 <#include "/templates/widgettest_textinputlayout.xml">
 <#include "/templates/widgettest_carousel.xml">
+<#include "/templates/widgettest_fragment.xml">
 <#macro getName name namespace=''>
 <#compress>
 	<#if name?starts_with("swt") || name?starts_with("ios")>
@@ -42,7 +43,7 @@
 		<@getAdditinalAttrs_CoordinatorLayout attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_CoordinatorLayout>
 		<@getAdditinalAttrs_TextInputLayout attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_TextInputLayout>
 		<@getAdditinalAttrs_Carousel attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_Carousel>
-
+		<@getAdditinalAttrs_Fragment attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_Fragment>
 		<#if name != 'layoutDescription' && widgetname=='androidx.constraintlayout.motion.widget.MotionLayout'>
 		app:layoutDescription="@xml/motionlayout_test"
         </#if>
@@ -1034,7 +1035,12 @@ android:visibility="${getVisibility(attrs)}"
 		<#return myarray>
 	</#if>
 
-	<#assign myarray=getTestCases_Recycleview(attrs)>
+	<#assign myarray=getTestCases_Recycleview(attrs, myclass.localName)>
+	<#if myarray?has_content>
+		<#return myarray>
+	</#if>
+	
+	<#assign myarray=getTestCases_Fragment(attrs, myclass.localName)>
 	<#if myarray?has_content>
 		<#return myarray>
 	</#if>

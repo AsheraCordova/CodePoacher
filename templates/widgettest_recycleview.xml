@@ -21,13 +21,13 @@
 </#compress>	
 </#macro>         
 
-<#function getTestCases_Recycleview attrs>
+<#function getTestCases_Recycleview attrs widgetname>
 	<#assign myarray=[]> 
 	<#if attrs.trimmedAttribute == 'layoutManager'>
 		<#assign myarray = myarray + ["androidx.recyclerview.widget.LinearLayoutManager"]>
 	<#elseif attrs.trimmedAttribute == 'viewHolderIds'>
 		<#assign myarray = myarray + ["@+id/name"]>
-	<#elseif attrs.trimmedAttribute == 'layout'>
+	<#elseif attrs.trimmedAttribute == 'layout' && widgetname == 'androidx.recyclerview.widget.RecyclerView'>
 		<#assign myarray = myarray + ["@xml/recyclerview_simple"]>
 	<#elseif attrs.trimmedAttribute == 'itemId' || attrs.trimmedAttribute == 'sectionId' || attrs.trimmedAttribute == 'itemConfigId'>
 		<#assign myarray = myarray + [""]>
@@ -35,13 +35,13 @@
 	<#return myarray>
 </#function>
 
-<#function getTestCases_attrs_Recycleview attrs>
+<#function getTestCases_attrs_Recycleview attrs widgetname>
 	<#assign myarray=[]> 
 	<#if attrs.trimmedAttribute == 'layoutManager'>
 		<#assign myarray = myarray + ["'androidx.recyclerview.widget.LinearLayoutManager'"]>
 	<#elseif attrs.trimmedAttribute == 'viewHolderIds'>
 		<#assign myarray = myarray + ["'@+id/name'"]>
-	<#elseif attrs.trimmedAttribute == 'layout'>
+	<#elseif attrs.trimmedAttribute == 'layout' && widgetname == 'androidx.recyclerview.widget.RecyclerView'>
 		<#assign myarray = myarray + ["'@xml/recyclerview_simple'"]>
 	<#elseif attrs.trimmedAttribute == 'itemId' || attrs.trimmedAttribute == 'sectionId' || attrs.trimmedAttribute == 'itemConfigId'>
 		<#assign myarray = myarray + ["''"]>

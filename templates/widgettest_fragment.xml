@@ -1,0 +1,45 @@
+<#macro getAdditinalAttrs_Fragment attrs name value id localname widgetname>
+<#compress>
+	
+</#compress>	
+</#macro>         
+
+<#function getTestCases_Fragment attrs widgetname>
+	<#assign myarray=[]> 
+	<#if widgetname=='fragment'>
+	<#if attrs.trimmedAttribute == 'tag'>
+		<#assign myarray = myarray + ["test"]>
+	<#elseif attrs.trimmedAttribute == 'replace'>
+		<#assign myarray = myarray + ["@layout/listfooter"]>
+	<#elseif attrs.trimmedAttribute == 'name'>
+		<#assign myarray = myarray + ["com.ashera.core.GenericFragment"]>
+	<#elseif attrs.trimmedAttribute == 'layout'>
+		<#assign myarray = myarray + ["@layout/listfooter"]>		
+	<#elseif attrs.trimmedAttribute == 'navGraph'>
+		<#assign myarray = myarray + ["@navigation/nav_child_graph"]>
+	<#elseif attrs.trimmedAttribute == 'actionId' || attrs.trimmedAttribute == 'destinationId'>
+		<#assign myarray = myarray + [""]>
+	</#if>		
+	</#if>
+	<#return myarray>
+</#function>
+
+<#function getTestCases_attrs_Fragment attrs widgetname>
+	<#assign myarray=[]> 
+	<#if widgetname=='fragment'>
+	<#if attrs.trimmedAttribute == 'tag'>
+		<#assign myarray = myarray + ["'test'"]>
+	<#elseif attrs.trimmedAttribute == 'replace'>
+		<#assign myarray = myarray + ["'@layout/listfooter'"]>
+	<#elseif attrs.trimmedAttribute == 'name'>
+		<#assign myarray = myarray + ["'com.ashera.core.GenericFragment'"]>
+	<#elseif attrs.trimmedAttribute == 'layout'>
+		<#assign myarray = myarray + ["'@layout/listfooter'"]>		
+	<#elseif attrs.trimmedAttribute == 'navGraph'>
+		<#assign myarray = myarray + ["'@navigation/nav_child_graph'"]>
+	<#elseif attrs.trimmedAttribute == 'actionId' || attrs.trimmedAttribute == 'destinationId'>
+		<#assign myarray = myarray + ["''"]>		
+	</#if>		
+	</#if>
+	<#return myarray>
+</#function>	

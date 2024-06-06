@@ -7,7 +7,7 @@
 <#include "/templates/widgettest_progressbar.xml">
 <#include "/templates/widgettest_coordinatorlayout.xml">
 <#include "/templates/widgettest_carousel.xml">
-
+<#include "/templates/widgettest_fragment.xml">
 <#function getWidgetName>
 	<#if myclass.localName == 'layout'>
 		<#return 'Root'>
@@ -37,7 +37,7 @@ import {NavController, InjectController} from './navigation/NavController';
 	<#if myarray?has_content>
 		<#return myarray>
 	</#if>
-	<#assign myarray=getTestCases_attrs_Recycleview(attrs)>
+	<#assign myarray=getTestCases_attrs_Recycleview(attrs, myclass.localName)>
 	<#if myarray?has_content>
 		<#return myarray>
 	</#if>
@@ -55,6 +55,11 @@ import {NavController, InjectController} from './navigation/NavController';
 	</#if>	
 	
 	<#assign myarray=getTestCases_DatePicker_attrs(attrs, myclass.localName)>
+	<#if myarray?has_content>
+		<#return myarray>
+	</#if>
+	
+	<#assign myarray=getTestCases_attrs_Fragment(attrs, myclass.localName)>
 	<#if myarray?has_content>
 		<#return myarray>
 	</#if>

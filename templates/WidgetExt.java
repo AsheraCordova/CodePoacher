@@ -2,6 +2,7 @@
 	public class <@getWidgetClassNameShortName myclass=myclass></@getWidgetClassNameShortName>Ext extends <@getWidgetClassName myclass=myclass></@getWidgetClassName> implements ILifeCycleDecorator<#if !myclass.createDefault?contains("maxDimensionSupported|")>, com.ashera.widget.IMaxDimension</#if>{
 		private MeasureEvent measureFinished = new MeasureEvent();
 		private OnLayoutEvent onLayoutEvent = new OnLayoutEvent();
+		<#if process == 'swt' || process == 'ios' || process == 'web'>private List<IWidget> overlays;</#if>
 		public IWidget getWidget() {
 			return ${myclass.widgetName}.this;
 		}
@@ -104,6 +105,7 @@
 			<#if process == 'swt' || process == 'ios' || process == 'web'>
 			ViewImpl.setDrawableBounds(${myclass.widgetName}.this, l, t, r, b);
 			</#if>
+			<#if process == 'swt' || process == 'ios' || process == 'web'>if (!isOverlay()) {</#if>
 			<#if !myclass.createDefault?contains("skipSetVisibility|")><#if myclass.widgetName == 'ScrollViewImpl' || myclass.createDefault?contains("computeVerticalScrollRange|")>
 			ViewImpl.nativeMakeFrame(asNativeWidget(), l, t, r, b, (int) (computeVerticalScrollRange()));
 			<#elseif myclass.widgetName == 'HorizontalScrollViewImpl'>
@@ -114,6 +116,7 @@
 			<#if myclass.createDefault?contains("nativeMakeFrameForChildWidget|")>
 			nativeMakeFrameForChildWidget(l, t, r, b);
 			</#if>
+			<#if process == 'swt' || process == 'ios' || process == 'web'>}</#if>
 			replayBufferedEvents();
 			<#if myclass.createDefault?contains("createcanvas|")>
 			canvas.reset();
@@ -121,6 +124,7 @@
 	        </#if>
 	        <#if process == 'swt' || process == 'ios' || process == 'web'>
 	        ViewImpl.redrawDrawables(${myclass.widgetName}.this);
+	        overlays = ViewImpl.drawOverlay(${myclass.widgetName}.this, overlays);
 			</#if>
 			
 			IWidgetLifeCycleListener listener = (IWidgetLifeCycleListener) getListener();
@@ -323,7 +327,7 @@
 				setState4(value);
 				return;
 			}
-			${myclass.widgetName}.this.setAttribute(name, value, true);
+			${myclass.widgetName}.this.setAttribute(name, value, !(value instanceof String));
 		}
         <#if !myclass.createDefault?contains("skipSetVisibility|")>
         @Override
@@ -395,6 +399,10 @@
         @Override
         public r.android.view.View getItemView(r.android.view.MenuItem item) {
         	return ActionMenuViewImpl.this.getItemView(item);
+        }
+        @Override
+        public boolean hasItemView(r.android.view.MenuItem item) {
+        	return ActionMenuViewImpl.this.hasItemView(item);
         }
         
         @Override

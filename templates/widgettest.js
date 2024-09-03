@@ -8,6 +8,8 @@
 <#include "/templates/widgettest_coordinatorlayout.xml">
 <#include "/templates/widgettest_carousel.xml">
 <#include "/templates/widgettest_fragment.xml">
+<#include "/templates/widgettest_navigationview.xml">
+<#include "/templates/widgettest_viewoverlay.xml">
 <#function getWidgetName>
 	<#if myclass.localName == 'layout'>
 		<#return 'Root'>
@@ -30,6 +32,10 @@ import {NavController, InjectController} from './navigation/NavController';
 // end - imports
 <#function getTestCases attrs parentAttribute=''>
 	<#assign myarray=getTestCases_attrs_TextView(attrs)>
+	<#if myarray?has_content>
+		<#return myarray>
+	</#if>
+	<#assign myarray=getTestCases_NavigationView_attrs(attrs, myclass.localName)>
 	<#if myarray?has_content>
 		<#return myarray>
 	</#if>
@@ -74,9 +80,15 @@ import {NavController, InjectController} from './navigation/NavController';
 		<#return myarray>
 	</#if>
 	
+	<#assign myarray=getTestCases_attrs_ViewOverlay(attrs, myclass.localName)>
+	<#if myarray?has_content>
+		<#return myarray>
+	</#if>
 	<#assign array=[]> 
 	<#if attrs.type == 'dimensionsp'>
 		<#assign array = array + ["'20sp'"]>
+	<#elseif attrs.trimmedAttribute == 'webGlobalAttributes'>
+		<#assign array = array + ["'color:red'"]>		
 	<#elseif attrs.trimmedAttribute == 'anchor'>	
 		<#assign array = array + ["''"]>
 	<#elseif attrs.trimmedAttribute == 'childXml'>

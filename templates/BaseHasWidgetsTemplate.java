@@ -468,9 +468,6 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
         pane = new org.eclipse.swt.widgets.Composite((org.eclipse.swt.widgets.Composite)ViewImpl.getParent(this), getStyle(params, fragment));
         ((org.eclipse.swt.widgets.Composite)pane).setLayout(new org.eclipse.nebula.widgets.layout.AbsoluteLayout());
     }
-    public boolean isWidgetDisposed() {
-		return ((org.eclipse.swt.widgets.Control) pane).isDisposed();
-	}
     </#if>
     <#if process == 'web'>
     private void nativeCreate(Map<String, Object> params) {
@@ -485,7 +482,12 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
 		uiView_ = uiView;
 	]-*/;
 	</#if>
-    </#if>  
+    </#if> 
+    <#if process == 'swt'>
+    public boolean isWidgetDisposed() {
+		return ((org.eclipse.swt.widgets.Control) pane).isDisposed();
+	}
+    </#if>
     
     @Override
     public void requestLayout() {

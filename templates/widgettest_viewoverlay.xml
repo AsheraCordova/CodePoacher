@@ -1,0 +1,64 @@
+<#macro getAdditinalAttrs_ViewOverlay attrs name value id localname widgetname>
+<#compress>
+	
+</#compress>	
+</#macro>         
+
+<#function getTestCases_ViewOverlay attrs widgetname>
+	<#assign myarray=[]> 
+	<#if attrs.trimmedAttribute == 'anchorRef'>
+		<#assign myarray = myarray + ["@+id/sampleWidget"]>
+	</#if>
+	<#if attrs.trimmedAttribute == 'boundsType'>
+		<#assign myarray = myarray + ["top"]>
+	</#if>
+	<#if attrs.trimmedAttribute == 'drawable'>
+		<#assign myarray = myarray + ["@drawable/cross3"]>
+	</#if>
+	
+	<#if attrs.trimmedAttribute == 'offsetVertical'>
+		<#assign myarray = myarray + ["10dp"]>
+	</#if>
+	<#if attrs.trimmedAttribute == 'offsetHorizontal'>
+	<#assign myarray = myarray + ["10dp"]>
+	</#if>
+	
+	<#if attrs.trimmedAttribute == 'drawableWidth' || attrs.trimmedAttribute == 'drawableHeight'>
+	<#assign myarray = myarray + ["10dp"]>
+	</#if>
+	
+	<#if attrs.trimmedAttribute == 'boundsConverter'>
+	<#assign myarray = myarray + ["overlay_bounds"]>
+	</#if>
+		
+	<#return myarray>
+</#function>
+
+<#function getTestCases_attrs_ViewOverlay attrs widgetname>
+	<#assign myarray=[]> 
+	<#if attrs.trimmedAttribute == 'anchorRef'>
+		<#assign myarray = myarray + ["'@+id/sampleWidget'"]>
+	</#if>
+	<#if attrs.trimmedAttribute == 'boundsType'>
+		<#assign myarray = myarray + ["'top'"]>
+	</#if>
+	<#if attrs.trimmedAttribute == 'drawable'>
+		<#assign myarray = myarray + ["'@drawable/cross3'"]>
+	</#if>
+	
+	<#if attrs.trimmedAttribute == 'offsetVertical'>
+		<#assign myarray = myarray + ["'10dp'"]>
+	</#if>
+	<#if attrs.trimmedAttribute == 'offsetHorizontal'>
+	<#assign myarray = myarray + ["'10dp'"]>
+	</#if>
+	
+	<#if attrs.trimmedAttribute == 'drawableWidth' || attrs.trimmedAttribute == 'drawableHeight'>
+	<#assign myarray = myarray + ["'10dp'"]>
+	</#if>
+	
+	<#if attrs.trimmedAttribute == 'boundsConverter'>
+	<#assign myarray = myarray + ["'overlay_bounds'"]>
+	</#if>	
+	<#return myarray>
+</#function>	

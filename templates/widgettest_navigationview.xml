@@ -1,58 +1,45 @@
-<#macro getAdditinalAttrs_Toolbar attrs name value id localname widgetname>
+<#macro getAdditinalAttrs_NavigationView attrs name value id localname widgetname>
 <#compress>
-	<#if widgetname=='androidx.appcompat.widget.Toolbar'>
-	<#if attrs.trimmedAttribute == 'onNavigationIconClick'>
-		app:navigationIcon="@drawable/cross3"
-	</#if>
-	<#if attrs.trimmedAttribute != 'menu'>
-		<#if attrs.trimmedAttribute?starts_with("badge") || attrs.trimmedAttribute == 'menuItemIds'>
-		app:menu="@menu/bottom_nav_menu"
-		<#else>
-		app:menu="@menu/main_menu"
-		</#if>	
-	</#if>	
-	
-	<#if name == 'menuItemIds'>
-	badgeNumbers="@array/badgeNumbers"
-	</#if>
-	<#if name == 'badgeNumbers'>
-	menuItemIds="@array/badgeMenuItemIds"
-	</#if>
-	<#if name == 'badgeBackgroundColors' || attrs.trimmedAttribute == 'badgeTextColors' 
-			|| attrs.trimmedAttribute == 'badgeHorizontalOffsets' || attrs.trimmedAttribute == 'badgeVerticalOffsets'
-			|| attrs.trimmedAttribute == 'badgeHorizontalAdditionalOffsets' || attrs.trimmedAttribute == 'badgeVerticalAdditionalOffsets' 
-			|| attrs.trimmedAttribute == 'badgeGravities' || attrs.trimmedAttribute == 'badgeIsVisibles'
-			 || attrs.trimmedAttribute == 'badgeAlphas' ||  attrs.trimmedAttribute == 'badgeMaxCharacterCounts' || attrs.trimmedAttribute == 'badgeTextAppearanceResources' || attrs.trimmedAttribute == 'headerLayout'>
-	menuItemIds="@array/badgeMenuItemIds"
-	badgeNumbers="@array/badgeNumbers"
-	</#if>
-	<#if attrs.trimmedAttribute != 'title'>
-		app:title="Sample Title"
-	</#if>
-	<#if attrs.trimmedAttribute == 'subtitleTextColor'>
-		app:subtitle="Sub Title"
-	</#if>	
-	
-	</#if>
+<#if widgetname == 'com.google.android.material.bottomnavigation.BottomNavigationView' || widgetname == 'com.google.android.material.navigationrail.NavigationRailView'>		
+<#if name != 'menu'>
+app:menu="@menu/bottom_nav_menu"
+</#if>
+<#if name != 'background'>
+android:background="#f0f"
+</#if>
+<#if name == 'menuItemIds'>
+badgeNumbers="@array/badgeNumbers"
+</#if>
+<#if name == 'badgeNumbers'>
+menuItemIds="@array/badgeMenuItemIds"
+</#if>
+<#if name == 'badgeBackgroundColors' || attrs.trimmedAttribute == 'badgeTextColors' 
+		|| attrs.trimmedAttribute == 'badgeHorizontalOffsets' || attrs.trimmedAttribute == 'badgeVerticalOffsets'
+		|| attrs.trimmedAttribute == 'badgeHorizontalAdditionalOffsets' || attrs.trimmedAttribute == 'badgeVerticalAdditionalOffsets' 
+		|| attrs.trimmedAttribute == 'badgeGravities' || attrs.trimmedAttribute == 'badgeIsVisibles'
+		 || attrs.trimmedAttribute == 'badgeAlphas' ||  attrs.trimmedAttribute == 'badgeMaxCharacterCounts' || attrs.trimmedAttribute == 'badgeTextAppearanceResources' || attrs.trimmedAttribute == 'headerLayout'>
+menuItemIds="@array/badgeMenuItemIds"
+badgeNumbers="@array/badgeNumbers"
+</#if>
+</#if>
 </#compress>	
 </#macro>         
 
-<#function getTestCases_Toolbar attrs>
+
+<#function getTestCases_NavigationView attrs widgetname>
 	<#assign myarray=[]> 
-	<#if attrs.trimmedAttribute == 'menu'>
-		<#assign myarray = myarray + ["@menu/main_menu"]>
-	</#if>
-	<#if attrs.trimmedAttribute == 'buttonGravity'>
-		<#assign myarray = myarray + ["top", "bottom", "center_vertical"]>
-	</#if>
-	<#if attrs.trimmedAttribute == 'spinnerMode'>
-		<#assign myarray = myarray + ["dropdown", "dialog"]>
-	</#if>
-	
-	<#if attrs.trimmedAttribute == 'onNavigationIconClick'>
-		<#assign myarray = myarray + ["onMenuItemClick"]>
-	</#if>
-	<#if attrs.trimmedAttribute == 'menuItemIds'>
+	<#if widgetname == 'com.google.android.material.bottomnavigation.BottomNavigationView' || widgetname == 'com.google.android.material.navigationrail.NavigationRailView'>
+		<#if attrs.trimmedAttribute == 'menu'>
+		<#assign myarray = myarray + ["@menu/bottom_nav_menu"]>
+		</#if>
+		<#if attrs.trimmedAttribute == 'itemTextAppearanceInactive' ||  attrs.trimmedAttribute == 'itemTextAppearanceActive'>
+		<#assign myarray = myarray + ["@style/CustomTextStyle"]>
+		</#if>
+		<#if attrs.trimmedAttribute == 'selectedItemId'>
+		<#assign myarray = myarray + ["@+id/n__home"]>
+		</#if>
+		
+		<#if attrs.trimmedAttribute == 'menuItemIds'>
 		<#assign myarray = myarray + ["@array/badgeMenuItemIds"]>
 		</#if>
 		
@@ -95,25 +82,25 @@
 		<#if attrs.trimmedAttribute == 'menuGravity'>
 		<#assign myarray = myarray + ["top", "bottom", "center"]>
 		</#if>	
+		
+	</#if>
 	<#return myarray>
 </#function>
 
-<#function getTestCases_attrs_Toolbar attrs>
+<#function getTestCases_NavigationView_attrs attrs widgetname>
 	<#assign myarray=[]> 
-	<#if attrs.trimmedAttribute == 'menu'>
-		<#assign myarray = myarray + ["'@menu/main_menu'"]>
-	</#if>
-	<#if attrs.trimmedAttribute == 'onNavigationIconClick'>
-		<#assign myarray = myarray + ["'onMenuItemClick'"]>
-	</#if>
-	<#if attrs.trimmedAttribute == 'buttonGravity'>
-		<#assign myarray = myarray + ["Gravity.top", "Gravity.bottom", "Gravity.center_vertical"]>
-	</#if>
-	<#if attrs.trimmedAttribute == 'spinnerMode'>
-		<#assign myarray = myarray + ["'dropdown'", "'dialog'"]>
-	</#if>
-	
-	<#if attrs.trimmedAttribute == 'menuItemIds'>
+		<#if widgetname == 'com.google.android.material.bottomnavigation.BottomNavigationView' || widgetname == 'com.google.android.material.navigationrail.NavigationRailView'>
+		<#if attrs.trimmedAttribute == 'menu'>
+		<#assign myarray = myarray + ["'@menu/bottom_nav_menu'"]>
+		</#if>
+		<#if attrs.trimmedAttribute == 'itemTextAppearanceInactive' ||  attrs.trimmedAttribute == 'itemTextAppearanceActive'>
+		<#assign myarray = myarray + ["'@style/CustomTextStyle'"]>
+		</#if>
+		<#if attrs.trimmedAttribute == 'selectedItemId'>
+		<#assign myarray = myarray + ["'@+id/n__settings'"]>
+		</#if>
+		
+		<#if attrs.trimmedAttribute == 'menuItemIds'>
 		<#assign myarray = myarray + ["'@array/badgeMenuItemIds'"]>
 		</#if>
 		
@@ -157,5 +144,7 @@
 				<#if attrs.trimmedAttribute == 'menuGravity'>
 		<#assign myarray = myarray + ["Gravity.top", "Gravity.bottom", "Gravity.center"]>
 		</#if>	
+	</#if>
 	<#return myarray>
 </#function>	
+

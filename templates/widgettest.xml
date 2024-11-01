@@ -374,14 +374,14 @@
 	   android:shadowRadius="2"  
        android:shadowColor="#ffff00" 
        android:shadowDx="0" 
-    <#elseif name == 'drawableTint'>
-		android:drawableLeft="@drawable/calatrava_cross"
+    <#elseif name == 'drawableTint' || name == 'drawableIconSize'>
+		android:drawableStart="@drawable/calatrava_cross"
 	<#elseif name == 'drawableTintMode'>
-		android:drawableLeft="@drawable/calatrava_cross"
+		android:drawableStart="@drawable/calatrava_cross"
 		android:drawableTint="#000"
 	<#elseif name == 'drawablePadding'>
 		<#if id == 0>
-		android:drawableLeft="@drawable/calatrava_cross"
+		android:drawableStart="@drawable/calatrava_cross"
 		</#if>
 		<#if id == 1>
 		android:drawableRight="@drawable/calatrava_cross"
@@ -863,7 +863,12 @@ android:background="#ff0000"
 			android:text="Test ${testcase}"></TextView>
 	</TableRow>
 	<#elseif myclass.localName=='ListView' ||  myclass.localName=='androidx.recyclerview.widget.RecyclerView' || myclass.localName=='androidx.drawerlayout.widget.DrawerLayout'  || myclass.localName=='androidx.appcompat.widget.Toolbar' || myclass.localName=='com.ashera.datetime.DatePicker' || myclass.localName=='com.ashera.datetime.TimePicker'
-		|| myclass.localName=='com.google.android.material.bottomnavigation.BottomNavigationView' || myclass.localName=='com.google.android.material.navigationrail.NavigationRailView'>
+		|| myclass.localName=='com.google.android.material.bottomnavigation.BottomNavigationView' || myclass.localName=='com.google.android.material.navigationrail.NavigationRailView'
+		|| myclass.localName=='com.google.android.material.navigation.NavigationView'>
+	<#elseif myclass.localName=='com.google.android.material.tabs.TabLayout' || myclass.group=='com.google.android.material.tabs.TabLayout'>
+	<com.google.android.material.tabs.TabItem android:text="Person" android:icon="@drawable/icon_clear" android:id="@+id/n__person"/>
+	<com.google.android.material.tabs.TabItem android:text="Home" android:icon="@drawable/icon_calendar" android:id="@+id/n__home"/>
+	<com.google.android.material.tabs.TabItem android:text="Settings" android:icon="@drawable/icon_expand" android:id="@+id/n__settings"/>
 	<#elseif myclass.widgetSuperClass == 'ViewGroupImpl' || myclass.localName=='ViewGroup'>
 	<TextView	
 	    <@getChildAttribute alais=attr testcase=testcase namespace=namespace></@getChildAttribute>${'\n'}
@@ -1019,7 +1024,7 @@ android:visibility="${getVisibility(attrs)}"
 <#function getVisibility attrs>
 	<#assign visibility='visible'> 
 	<#if  attrs.xmlTest?? && attrs.xmlTest?starts_with('pass') && !myclass.makeTestCaseVisible>
-		<#assign visibility='gone'>
+		<#assign visibility='visible'>
 	</#if>
 	<#return visibility>
 </#function>
@@ -1084,6 +1089,8 @@ android:visibility="${getVisibility(attrs)}"
 	
 	<#if attrs.type == 'dimensionsp'>
 		<#assign array = array + ["10sp"]>
+	<#elseif attrs.trimmedAttribute == 'drawableIconSize'>
+		<#assign array = array + ["90dp", "20dp"]>		
 	<#elseif attrs.trimmedAttribute == 'webGlobalAttributes'>
 		<#assign array = array + ["color:red"]>	
 	<#elseif attrs.trimmedAttribute == 'contentView'>

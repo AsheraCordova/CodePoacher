@@ -203,7 +203,7 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
 
 	<#if !myclass.createDefault?contains("skipRemoveMethods|")>
 	@Override
-	public boolean remove(IWidget w) {<#if myclass.createDefault?contains("preRemove|")>if (preRemove(w)) {return true;}</#if>		
+	public boolean remove(IWidget w) {<#if myclass.createDefault?contains("preRemove|")>if (preRemove(w)) {return true;}</#if>
 		boolean remove = super.remove(w);
 		${myclass.varName}.removeView((View) w.asWidget());
 		 <#if process == 'swt' || process == 'ios' || process == 'web'>
@@ -214,6 +214,10 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
 	
 	@Override
     public boolean remove(int index) {
+		<#if myclass.createDefault?contains("removeViewAt|")>
+		${myclass.varName}.removeViewAt(index);
+		return true;
+		<#else>
 		IWidget widget = widgets.get(index);
         boolean remove = super.remove(index);
 
@@ -224,6 +228,7 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
             </#if>
         }    
         return remove;
+        </#if>
     }
 	</#if>
 

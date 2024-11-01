@@ -28,7 +28,7 @@ export class ${attrs.typeVariable}Transformer implements ITranform {
 <#compress>
 <#if attrs.methodParams?has_content>
 <#list attrs.methodParams as param>
-<@getTypeScriptTypeVarForMethodParam attrs=param></@getTypeScriptTypeVarForMethodParam> : <@getTypeScriptType attrs=param></@getTypeScriptType><#if param?has_next>,</#if>
+<@getTypeScriptTypeVarForMethodParam attrs=param></@getTypeScriptTypeVarForMethodParam> : <@getTypeScriptType attrs=param></@getTypeScriptType><#if (param.nullable)?default('') == 'true'>|null</#if><#if param?has_next>,</#if>
 </#list>
 <#else>
 <#if attrs.type != 'nil'><@getTypeScriptTypeVar attrs=attrs></@getTypeScriptTypeVar> : <@getTypeScriptType attrs=attrs></@getTypeScriptType><#if attrs.params?has_content>,${attrs.params}</#if></#if>
@@ -135,7 +135,7 @@ export class ${attrs.typeVariable}Transformer implements ITranform {
 	<#elseif attrs.type == 'int' || attrs.type == 'float'>
 		number
 	<#elseif attrs.type == 'image' || attrs.type == 'Image' || attrs.type == 'colorstate' || attrs.type == 'color' || attrs.type == 'String' || attrs.type=="dimension" || attrs.type=="dimensionfloat" || attrs.type=="dimensionsp" || attrs.type=="colorimage" || attrs.type=="dimensionspint" || attrs.type=="dimensionsppxint" || attrs.type=="drawable" || attrs.type == 'resourcestring' || attrs.type == 'template' || attrs.type='font' || attrs.type?contains('constraintReferencedIds') || attrs.type=='style' || attrs.type=='xmlresource'
-		|| attrs.type == 'swtbitflag' || attrs.type=="dimensionpx" || attrs.type=="array" || attrs.type=="dimensiondppx">
+		|| attrs.type == 'swtbitflag' || attrs.type=="dimensionpx" || attrs.type=="array" || attrs.type=="dimensiondppx" || attrs.type=="colorint">
 		string
 	<#elseif attrs.type == 'nil'>
 		void

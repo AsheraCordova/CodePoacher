@@ -95,7 +95,7 @@ public class ${myclass.widgetName} extends BaseWidget {
 	}
 	
 	<#if process == 'swt' || process == 'ios' || process == 'web'>
-	public class ViewExt extends View{
+	public class ViewExt extends View implements com.ashera.model.IViewStub{
 		@Override
 		public void remeasure() {
 			if (getFragment() != null) {

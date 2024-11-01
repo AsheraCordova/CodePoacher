@@ -140,7 +140,7 @@ public Object <#if alais == ''>${attrs.getter}<#else>${attrs.getGetterForAlias(a
 	<#elseif attrType == 'int' || attrType == 'float'>
 	 	${attrType}
 	<#elseif attrType == 'image' || attrType == 'Image' || attrType == 'colorstate' || attrType == 'color' || attrType == 'String' || attrType=="dimension" || attrType=="dimensionfloat" || attrType=="dimensionsp" || attrType=="colorimage" || attrType=="dimensionspint" || attrType=="dimensionsppxint" || attrType=="drawable" || attrType == 'resourcestring' || attrType == 'template' || attrType='font' || attrType?contains('constraintReferencedIds') || attrType=='style' || attrType='xmlresource'
-		|| attrType == 'swtbitflag' || attrType=="dimensionpx"  || attrType == 'string' || attrType=="dimensiondppx">
+		|| attrType == 'swtbitflag' || attrType=="dimensionpx"  || attrType == 'string' || attrType=="dimensiondppx" || attrType == 'colorint'>
 		String
 	<#elseif attrType == 'nil'>
 		void

@@ -9,6 +9,7 @@
 		<filter token="pluginDir" value="${pluginDir}" />
 		<filter token="pluginName" value="${pluginName}" />
 		<filter token="iospackagename" value="${iospackagename}" />
+		<filter token="swtpackagename" value="${swtpackagename}" />
 		<filter token="name" value="${name}" />
 		<filter token="os" value="${os}" />
 		<filter token="iospackageprefix" value="${iospackageprefix}" />

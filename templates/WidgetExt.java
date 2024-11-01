@@ -108,7 +108,7 @@
 			<#if process == 'swt' || process == 'ios' || process == 'web'>if (!isOverlay()) {</#if>
 			<#if !myclass.createDefault?contains("skipSetVisibility|")><#if myclass.widgetName == 'ScrollViewImpl' || myclass.createDefault?contains("computeVerticalScrollRange|")>
 			ViewImpl.nativeMakeFrame(asNativeWidget(), l, t, r, b, (int) (computeVerticalScrollRange()));
-			<#elseif myclass.widgetName == 'HorizontalScrollViewImpl'>
+			<#elseif myclass.widgetName == 'HorizontalScrollViewImpl' || myclass.createDefault?contains("computeHorizontalScrollRange|")>
 			ViewImpl.nativeMakeFrameForHorizontalScrollView(asNativeWidget(), l, t, r, b, (int) (computeHorizontalScrollRange()));
 			<#else>			
 			ViewImpl.nativeMakeFrame(asNativeWidget(), l, t, r, b);
@@ -215,7 +215,9 @@
         @Override
         public void drawableStateChanged() {
         	super.drawableStateChanged();
-        	ViewImpl.drawableStateChanged(${myclass.widgetName}.this);
+        	if (!isWidgetDisposed()) {
+        		ViewImpl.drawableStateChanged(${myclass.widgetName}.this);
+        	}
         }
         <#if process == 'swt' || process == 'web' || process == 'ios'>
         private Map<String, IWidget> templates;
@@ -229,9 +231,10 @@
     			template = (IWidget) quickConvert(layout, "template");
     			templates.put(layout, template);
     		}
-    		IWidget widget = template.loadLazyWidgets(${myclass.widgetName}.this.getParent());
-    		return (View) widget.asWidget();
-    	}        
+    		
+    		IWidget widget = template.loadLazyWidgets(${myclass.widgetName}.this<#if !viewgroup>.getParent()</#if>);
+			return (View) widget.asWidget();
+    	}   
         
     	@Override
 		public void remeasure() {
@@ -334,7 +337,10 @@
         public void setVisibility(int visibility) {
             super.setVisibility(visibility);
             <#if process == 'swt'>
-            ((org.eclipse.swt.widgets.Control)asNativeWidget()).setVisible(View.VISIBLE == visibility);
+            org.eclipse.swt.widgets.Control control = ((org.eclipse.swt.widgets.Control)asNativeWidget());
+            if (!control.isDisposed()) {
+            	control.setVisible(View.VISIBLE == visibility);
+            }
             </#if>
             <#if process == 'web'>
             ((HTMLElement)asNativeWidget()).getStyle().setProperty("display", visibility != View.VISIBLE ? "none" : "block");
@@ -534,6 +540,19 @@
 		public void endViewTransition(r.android.view.View view) {
 			super.endViewTransition(view);
 			runBufferedRunnables();
+		}
+		</#if>
+	
+		<#if myclass.createDefault?contains("removeViewAt|")>
+		@Override
+		public void removeViewAt(int index) {
+			super.removeViewAt(index);
+			IWidget widget = widgets.get(index);
+			${myclass.widgetName}.super.remove(index);
+
+	        if (index + 1 <= ${myclass.varName}.getChildCount()) {
+	            nativeRemoveView(widget);
+	        }    
 		}
 		</#if>
 	}

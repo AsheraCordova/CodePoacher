@@ -1,8 +1,12 @@
 <#macro getAdditinalAttrs_NavigationView attrs name value id localname widgetname>
 <#compress>
-<#if widgetname == 'com.google.android.material.bottomnavigation.BottomNavigationView' || widgetname == 'com.google.android.material.navigationrail.NavigationRailView'>		
+<#if widgetname == 'com.google.android.material.bottomnavigation.BottomNavigationView' || widgetname == 'com.google.android.material.navigationrail.NavigationRailView' || widgetname == 'com.google.android.material.navigation.NavigationView'>		
 <#if name != 'menu'>
+<#if widgetname == 'com.google.android.material.navigation.NavigationView'>
+app:menu="@menu/nav_view_menu"
+<#else>
 app:menu="@menu/bottom_nav_menu"
+</#if>
 </#if>
 <#if name != 'background'>
 android:background="#f0f"
@@ -22,22 +26,50 @@ menuItemIds="@array/badgeMenuItemIds"
 badgeNumbers="@array/badgeNumbers"
 </#if>
 </#if>
+<#if widgetname == 'com.google.android.material.tabs.TabLayout' || widgetname == 'CTabFolder' || widgetname == 'TabFolder'>		
+<#if name == 'menuItemIds'>
+badgeNumbers="@array/badgeNumbers"
+</#if>
+<#if name == 'badgeNumbers' || name=="updateTabTexts">
+menuItemIds="@array/badgeMenuItemIds"
+</#if>
+<#if name == 'badgeBackgroundColors' || attrs.trimmedAttribute == 'badgeTextColors' 
+		|| attrs.trimmedAttribute == 'badgeHorizontalOffsets' || attrs.trimmedAttribute == 'badgeVerticalOffsets'
+		|| attrs.trimmedAttribute == 'badgeHorizontalAdditionalOffsets' || attrs.trimmedAttribute == 'badgeVerticalAdditionalOffsets' 
+		|| attrs.trimmedAttribute == 'badgeGravities' || attrs.trimmedAttribute == 'badgeIsVisibles'
+		 || attrs.trimmedAttribute == 'badgeAlphas' ||  attrs.trimmedAttribute == 'badgeMaxCharacterCounts' || attrs.trimmedAttribute == 'badgeTextAppearanceResources' || attrs.trimmedAttribute == 'headerLayout'>
+menuItemIds="@array/badgeMenuItemIds"
+badgeNumbers="@array/badgeNumbers"
+</#if>
+</#if>
 </#compress>	
 </#macro>         
 
 
 <#function getTestCases_NavigationView attrs widgetname>
 	<#assign myarray=[]> 
-	<#if widgetname == 'com.google.android.material.bottomnavigation.BottomNavigationView' || widgetname == 'com.google.android.material.navigationrail.NavigationRailView'>
+	<#if widgetname == 'com.google.android.material.bottomnavigation.BottomNavigationView' || widgetname == 'com.google.android.material.navigationrail.NavigationRailView' || widgetname == 'com.google.android.material.navigation.NavigationView' 
+	|| widgetname == 'com.google.android.material.tabs.TabLayout' || widgetname == 'CTabFolder' || widgetname == 'TabFolder'>
+		<#if attrs.trimmedAttribute == 'updateTabTexts'>
+		<#assign myarray = myarray + ["1,2,3"]>
+		</#if>
 		<#if attrs.trimmedAttribute == 'menu'>
 		<#assign myarray = myarray + ["@menu/bottom_nav_menu"]>
 		</#if>
 		<#if attrs.trimmedAttribute == 'itemTextAppearanceInactive' ||  attrs.trimmedAttribute == 'itemTextAppearanceActive'>
 		<#assign myarray = myarray + ["@style/CustomTextStyle"]>
 		</#if>
-		<#if attrs.trimmedAttribute == 'selectedItemId'>
+		<#if attrs.trimmedAttribute == 'selectedItemId' || attrs.trimmedAttribute == 'removeTab'>
 		<#assign myarray = myarray + ["@+id/n__home"]>
 		</#if>
+		<#if attrs.trimmedAttribute == 'removeTabAt'>
+		<#assign myarray = myarray + ["0"]>
+		</#if>
+		
+		<#if attrs.trimmedAttribute == 'itemIconSize'>
+		<#assign myarray = myarray + ["90dp", "20dp"]>
+		</#if>
+		
 		
 		<#if attrs.trimmedAttribute == 'menuItemIds'>
 		<#assign myarray = myarray + ["@array/badgeMenuItemIds"]>
@@ -89,16 +121,38 @@ badgeNumbers="@array/badgeNumbers"
 
 <#function getTestCases_NavigationView_attrs attrs widgetname>
 	<#assign myarray=[]> 
-		<#if widgetname == 'com.google.android.material.bottomnavigation.BottomNavigationView' || widgetname == 'com.google.android.material.navigationrail.NavigationRailView'>
+		<#if widgetname == 'com.google.android.material.bottomnavigation.BottomNavigationView' || widgetname == 'com.google.android.material.navigationrail.NavigationRailView'  || widgetname == 'com.google.android.material.navigation.NavigationView' || widgetname == 'com.google.android.material.tabs.TabLayout' || widgetname == 'CTabFolder' || widgetname == 'TabFolder'>
+		<#if attrs.trimmedAttribute == 'updateTabTexts'>
+		<#assign myarray = myarray + ["'3,1,2'"]>
+		</#if>
+		<#if attrs.trimmedAttribute == 'itemIconSize'>
+		<#assign myarray = myarray + ["'20dp'", "'90dp'"]>
+		</#if>
+		<#if attrs.trimmedAttribute == 'text'>
+		<#assign myarray = myarray + ["'Lorem'"]>
+		</#if>
+		<#if attrs.trimmedAttribute == 'icon'>
+		<#assign myarray = myarray + ["'@drawable/icon_calendar'"]>
+		</#if>
+		<#if attrs.trimmedAttribute == 'where'>
+		<#assign myarray = myarray + ["null"]>
+		</#if>
+		<#if attrs.trimmedAttribute == 'layout' || attrs.trimmedAttribute == 'customTabTitleId' || attrs.trimmedAttribute == 'customTabiconId'>
+		<#assign myarray = myarray + ["null"]>
+		</#if>
 		<#if attrs.trimmedAttribute == 'menu'>
 		<#assign myarray = myarray + ["'@menu/bottom_nav_menu'"]>
 		</#if>
 		<#if attrs.trimmedAttribute == 'itemTextAppearanceInactive' ||  attrs.trimmedAttribute == 'itemTextAppearanceActive'>
 		<#assign myarray = myarray + ["'@style/CustomTextStyle'"]>
 		</#if>
-		<#if attrs.trimmedAttribute == 'selectedItemId'>
+		<#if attrs.trimmedAttribute == 'selectedItemId'|| attrs.trimmedAttribute == 'removeTab'>
 		<#assign myarray = myarray + ["'@+id/n__settings'"]>
 		</#if>
+		<#if attrs.trimmedAttribute == 'removeTabAt'>
+		<#assign myarray = myarray + ["0"]>
+		</#if>
+		
 		
 		<#if attrs.trimmedAttribute == 'menuItemIds'>
 		<#assign myarray = myarray + ["'@array/badgeMenuItemIds'"]>

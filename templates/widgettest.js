@@ -87,6 +87,8 @@ import {NavController, InjectController} from './navigation/NavController';
 	<#assign array=[]> 
 	<#if attrs.type == 'dimensionsp'>
 		<#assign array = array + ["'20sp'"]>
+	<#elseif attrs.trimmedAttribute == 'drawableIconSize'>
+		<#assign array = array + ["'20dp'", "'90dp'"]>		
 	<#elseif attrs.trimmedAttribute == 'webGlobalAttributes'>
 		<#assign array = array + ["'color:red'"]>		
 	<#elseif attrs.trimmedAttribute == 'anchor'>	

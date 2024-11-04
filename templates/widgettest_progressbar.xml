@@ -7,6 +7,13 @@
 		<#if process=='ios' && attrs.trimmedAttribute?starts_with('padding')>
 			enableFeatures="decorator"
 		</#if> 
+		<#if attrs.trimmedAttribute != 'progress'>
+			<#if attrs.trimmedAttribute == 'max'>
+				progress="2"
+			<#else>
+				progress="50"
+			</#if>
+		</#if>
 	</#if>
 </#macro>         
 

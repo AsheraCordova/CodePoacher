@@ -11,7 +11,7 @@
 	
 	<#assign myarray=[]> 
 	<#if attrs.trimmedAttribute == 'layout_behavior'>
-		<#assign myarray = myarray + ["test"]>
+		<#assign myarray = myarray + ["com.google.android.material.behavior.HideBottomViewOnScrollBehavior"]>
 	</#if>
 	<#if attrs.trimmedAttribute == 'keylines'>
 		<#assign myarray = myarray + ["@array/keylines"]>
@@ -22,7 +22,7 @@
 <#function getTestCases_CoordinatorLayout_attrs attrs widgetname>
 	<#assign myarray=[]> 
 	<#if attrs.trimmedAttribute == 'layout_behavior'>
-		<#assign myarray = myarray + ["'test'"]>
+		<#assign myarray = myarray + ["'com.google.android.material.behavior.HideBottomViewOnScrollBehavior'"]>
 	</#if>
 	<#if attrs.trimmedAttribute == 'keylines'>
 		<#assign myarray = myarray + ["'@array/keylines'"]>

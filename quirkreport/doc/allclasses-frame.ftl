@@ -13,7 +13,7 @@
 <div class="indexContainer">
 <ul>
 <#list report.widgetList as widget>
-<li><a href="${widget.packageDir}/${widget.trimmedGroup}.html" title="${widget.packageName}.${widget.trimmedGroup}" target="classFrame">${widget.trimmedGroup}</a></li>
+<li><a href="${widget.packageDir}/${widget.trimmedGroup}.html" title="${widget.packageName}.${widget.trimmedGroup}" target="classFrame">${widget.trimmedGroup} (${report.getPendingAttributeCount(widget.packageName, widget.trimmedGroup)})</a></li>
 </#list>
 
 

@@ -147,7 +147,7 @@ extends org.eclipse.swt.widgets.Layout</pre>
 <tr>
 <th class="colOne" scope="col">Widget Override</th>
 <#list widgets as widget>
-<th class="colOne" scope="col" colspan="4" style="text-align: center">${widget.name}</th>
+<th class="colOne" scope="col" colspan="4" style="text-align: center">${widget.name} (${widget.pendingAttributeCount})</th>
 </#list>
 </tr>
 

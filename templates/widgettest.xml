@@ -1023,7 +1023,7 @@ android:visibility="${getVisibility(attrs)}"
 
 <#function getVisibility attrs>
 	<#assign visibility='visible'> 
-	<#if  attrs.xmlTest?? && attrs.xmlTest?starts_with('pass') && !myclass.makeTestCaseVisible>
+	<#if  attrs.xmlTest?? && attrs.xmlTest?starts_with('pass') && !myclass.makeTestCaseVisible &&  !attrs.makeTestCaseVisible >
 		<#assign visibility='gone'>
 	</#if>
 	<#return visibility>

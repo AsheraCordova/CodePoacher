@@ -47,6 +47,9 @@ import org.teavm.jso.dom.html.HTMLElement;
 #include <UIKit/UIKit.h>
 #include "ASUIView.h"
 #include "HasLifeCycleDecorators.h"
+<#if myclass.createDefault?contains("simpleWrapableView|")>
+#include "ASUIScrollView.h"
+</#if>
 ]-*/
 import com.google.j2objc.annotations.Property;
 import androidx.core.view.*;
@@ -166,6 +169,9 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
 		${myclass.varName} = new <@getWidgetClassNameShortName myclass=myclass></@getWidgetClassNameShortName>Ext();
 		</#if>
 		
+		<#if myclass.createDefault?contains("simpleWrapableView|")>
+		createSimpleWrapableView();
+		</#if>
 		nativeCreate(params);
 		<#if myclass.createDefault?contains("createcanvas|")>
         createCanvas();
@@ -188,7 +194,7 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
 		ViewGroupImpl.registerCommandConveter(this);
 		<#if process == 'ios'>
 		setWidgetOnNativeClass();
-		</#if>
+		</#if><#if myclass.createDefault?contains("nativePostCreate|")>nativePostCreate();</#if>
 	}
 	<#if process == 'ios'>
 	private native void setWidgetOnNativeClass() /*-[
@@ -264,7 +270,7 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
 		}
 		
 		<#if !myclass.createDefault?contains("skipNativeAddView|")>
-		ViewGroupImpl.nativeAddView(asNativeWidget(), w.asNativeWidget());
+		ViewGroupImpl.nativeAddView(<#if myclass.createDefault?contains("simpleWrapableView|")>simpleWrapableView.getWrappedView()<#else>asNativeWidget()</#if>, w.asNativeWidget());
 		</#if>
 		super.add(w, index);
 	}
@@ -388,8 +394,8 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
 		<#if myclass.createDefault?contains("preSetAttribute|")>objValue = preSetAttribute(key, strValue, objValue, decorator);</#if><#if (myclass.baseClass?has_content)>
 		super.setAttribute(key, strValue, objValue, decorator);
 		</#if>
-		ViewGroupImpl.setAttribute(this, key, strValue, objValue, decorator);
-		Object nativeWidget = asNativeWidget();
+		ViewGroupImpl.setAttribute(this, <#if myclass.createDefault?contains("simpleWrapableView|")>simpleWrapableView,</#if> key, strValue, objValue, decorator);
+		Object nativeWidget = <#if myclass.createDefault?contains("simpleWrapableView|")>simpleWrapableView.getWrappedView()<#else>asNativeWidget()</#if>;
 		<#if myclass.widgetAttributes?has_content>
 		switch (key.getAttributeName()) {
 		<#list myclass.widgetAttributes as attrs>
@@ -413,7 +419,7 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
 		if (attributeValue != null) {
 			return attributeValue;
 		}
-		Object nativeWidget = asNativeWidget();
+		Object nativeWidget = <#if myclass.createDefault?contains("simpleWrapableView|")>simpleWrapableView.getWrappedView()<#else>asNativeWidget()</#if>;
 		<#if myclass.widgetAttributes?has_content>
 		switch (key.getAttributeName()) {
 		<#list myclass.widgetAttributes as attrs>
@@ -509,6 +515,14 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
     	if (isInitialised()) {
     		ViewImpl.invalidate(this, asNativeWidget());
     	}
+    	<#if myclass.createDefault?contains("simpleWrapableView|")>
+		if (isViewWrapped()) {
+			ViewImpl.invalidate(this, simpleWrapableView.getWrappedView());
+			if (simpleWrapableView.getForeground() != null) {
+				ViewImpl.invalidate(this, simpleWrapableView.getForeground());
+			}
+		}			
+		</#if>
     }
     
 	${extraCode}
@@ -558,7 +572,6 @@ public class ${myclass.widgetName} extends BaseHasWidgets {
 	}
     </#if>
 
-    <#include "/templates/WidgetBuilderTemplate.java">
-
+    <#include "/templates/SimpleWrapableViewTemplate.java">
 	//end - body
 }

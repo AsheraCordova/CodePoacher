@@ -161,6 +161,5 @@ public class ${myclass.widgetName} {
 	${methodDefinition}
 	</#list>
 
-    <#include "/templates/WidgetBuilderTemplate.java">
 	// end - body
 }

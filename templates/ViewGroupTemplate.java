@@ -15,6 +15,7 @@ import ${androidprefix}android.annotation.SuppressLint;
 
 import com.ashera.widget.*;
 import com.ashera.converter.*;
+import com.ashera.layout.ViewGroupModelImpl;
 
 import static com.ashera.widget.IWidget.*;
 //end - imports
@@ -43,12 +44,28 @@ public class ${myclass.widgetName} {
 		</#if>
 	}
 	
+	public static void setAttribute(IWidget w, SimpleWrapableView wrapperView,
+			WidgetAttribute key, String strValue, Object objValue, ILifeCycleDecorator decorator) {
+		<#if myclass.widgetName == 'ViewGroupImpl'>ViewGroupModelImpl<#else>ViewImpl</#if>.setAttribute(w, wrapperView, key, strValue, objValue, decorator);
+		if (wrapperView.isViewWrapped() && key.getSimpleWrapableViewStrategy() != 0) {
+			if ((key.getSimpleWrapableViewStrategy() & IWidget.APPLY_TO_VIEW_WRAPPER) != 0) {
+				setMyAttribute(w, wrapperView.getWrappedView(), key, strValue, objValue, decorator);
+			}
+			
+			if ((key.getSimpleWrapableViewStrategy() & IWidget.APPLY_TO_VIEW_HOLDER) != 0) {
+				setMyAttribute(w, wrapperView.getWrapperViewHolder(), key, strValue, objValue, decorator);
+			}
+			
+			if (((key.getSimpleWrapableViewStrategy() & IWidget.APPLY_TO_FOREGROUND) != 0) && wrapperView.getForeground() != null) {
+				setMyAttribute(w, wrapperView.getForeground(), key, strValue, objValue, decorator);
+			}
+		} else {
+			setMyAttribute(w, w.asNativeWidget(), key, strValue, objValue, decorator);
+		}
+	}
+	
 	@SuppressLint("NewApi")
 	public static void setAttribute(IWidget w, WidgetAttribute key, String strValue, Object objValue, ILifeCycleDecorator decorator) {
-		ViewGroup viewGroup = ((ViewGroup) w.asWidget());
-		<#if process != 'android' && process != 'ios'>
-		${myclass.nativeClassName} ${myclass.varName} = (${myclass.nativeClassName}) w.asNativeWidget();
-		</#if>
 		<#if myclass.widgetName == 'ViewGroupImpl'>
 		ViewGroupModelImpl.setAttribute(w, key, strValue, objValue, decorator);
 		<#else>
@@ -58,9 +75,12 @@ public class ${myclass.widgetName} {
 	}
 	
 	private static void setMyAttribute(IWidget w, WidgetAttribute key, String strValue, Object objValue, ILifeCycleDecorator decorator) {
+		setMyAttribute(w, w.asNativeWidget(), key, strValue, objValue, decorator);
+	}
+	private static void setMyAttribute(IWidget w, Object nativeWidget, WidgetAttribute key, String strValue, Object objValue, ILifeCycleDecorator decorator) {
 		ViewGroup viewGroup = ((ViewGroup) w.asWidget());
 		<#if process != 'android' && process != 'ios'>
-		${myclass.nativeClassName} ${myclass.varName} = (${myclass.nativeClassName}) w.asNativeWidget();
+		${myclass.nativeClassName} ${myclass.varName} = (${myclass.nativeClassName}) nativeWidget;
 		</#if>
 
 		<#if myclass.widgetAttributes?has_content>
@@ -180,6 +200,5 @@ public class ${myclass.widgetName} {
 		return false;
 	}
 
-    <#include "/templates/WidgetBuilderTemplate.java">
 	// end - body
 }

@@ -126,6 +126,5 @@ public class ${myclass.widgetName} implements com.ashera.widget.IAttributable {
 	${methodDefinition}
 	</#list>
 
-    <#include "/templates/WidgetBuilderTemplate.java">
 	// end - body
 }

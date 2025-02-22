@@ -1,0 +1,70 @@
+<#macro getAdditinalAttrs_Chip attrs name value id localname widgetname>
+<#compress>
+	<#if widgetname=='com.google.android.material.chip.ChipGroup'>
+		<#if name='singleLine'>			
+			app:chipSpacingHorizontal="20dp"
+    	</#if>
+    </#if>
+	<#if widgetname=='com.google.android.material.chip.Chip'>
+		<#if name != 'text' && name != 'gravity' && name != 'ellipsize'>
+			android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commod"		
+         </#if>
+         <#if name = 'checked' || name="onCheckedChange">
+			android:checkable="true"		
+         </#if>
+         
+         <#if name='checkedIcon' || name='checkedIconTint' || name="checkedIconVisible">
+			android:checkable="true"
+			checked="true"		
+         </#if>
+         
+         <#if name='chipIconSize' || name='chipIconTint' || name="chipIconVisible" || name="iconEndPadding" || name="iconStartPadding">			
+			app:chipIcon="@drawable/cross3"
+         </#if>
+         <#if name='chipEndPadding'>			
+			app:closeIconVisible="true"
+         </#if>
+         <#if name='chipStrokeColor'>			
+			app:chipStrokeWidth="3dp"
+         </#if>
+         
+         <#if name='closeIconSize' || name='closeIconTint' || name="closeIcon" || name="closeIconEndPadding" || name="closeIconStartPadding" || name="onCloseIconClick">			
+			app:closeIconVisible="true"
+         </#if>
+	</#if>
+</#compress>	
+</#macro>         
+
+
+<#function getTestCases_Chip attrs widgetname>
+	<#assign myarray=[]> 
+	<#if widgetname == 'com.google.android.material.chip.ChipGroup'>
+		<#if attrs.trimmedAttribute == 'checkMultiple'>
+			<#assign myarray = myarray + ["@array/checkMultiple"]>
+		</#if>		
+	</#if>
+	
+	<#return myarray>
+</#function>
+
+<#function getTestCases_attrs_Chip attrs widgetname>
+	<#assign myarray=[]> 
+	<#if widgetname == 'com.google.android.material.chip.ChipGroup'>
+		<#if attrs.trimmedAttribute == 'checkMultiple'>
+			<#assign myarray = myarray + ["'@+id/chip_message,@+id/chip_call'"]>
+		</#if>
+		
+		<#if attrs.trimmedAttribute == 'chipId'>
+			<#assign myarray = myarray + ["'@+id/new_chip'"]>
+		</#if>
+		
+		<#if attrs.trimmedAttribute == 'chipParams'>
+			<#assign myarray = myarray + ["'closeIconVisible:true;onCloseIconClick:removeMyChip'"]>
+		</#if>
+		<#if attrs.trimmedAttribute == 'removeChip'>
+			<#assign myarray = myarray + ["'@+id/chip_call'"]>
+		</#if>
+			
+	</#if>
+	<#return myarray>
+</#function>	

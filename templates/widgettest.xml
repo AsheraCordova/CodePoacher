@@ -12,6 +12,7 @@
 <#include "/templates/widgettest_fragment.xml">
 <#include "/templates/widgettest_navigationview.xml">
 <#include "/templates/widgettest_viewoverlay.xml">
+<#include "/templates/widgettest_chip.xml">
 <#macro getName name namespace=''>
 <#compress>
 	<#if name?starts_with("swt") || name?starts_with("ios")>
@@ -47,6 +48,7 @@
 		<@getAdditinalAttrs_Carousel attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_Carousel>
 		<@getAdditinalAttrs_Fragment attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_Fragment>
 		<@getAdditinalAttrs_NavigationView attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_NavigationView>
+		<@getAdditinalAttrs_Chip attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_Chip>
 		<#if name != 'layoutDescription' && widgetname=='androidx.constraintlayout.motion.widget.MotionLayout'>
 		app:layoutDescription="@xml/motionlayout_test"
         </#if>
@@ -555,6 +557,28 @@ android:background="#ff0000"
 		android:layout_width="${getChildWidth(attr)}"
 	 	android:layout_height="wrap_content"
 		android:text="Test1 ${testcase}"></RadioButton>		
+	<#elseif myclass.group == 'com.google.android.material.chip.ChipGroup'>
+		<com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text1"
+                    android:checkable="true"
+                    android:text="Play Music"
+                    />
+            <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/chip_call"
+                    android:checkable="true"
+                    android:text="Call to Friend"
+                    />
+            <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/chip_message"
+                    android:checkable="true"
+                    android:text="Send Message"
+                    />	
 	<#elseif (myclass.group == 'androidx.constraintlayout.widget.ConstraintLayout' || myclass.group == 'androidx.constraintlayout.motion.widget.MotionLayout') && attr == 'layout_constrainedWidth'>    
 	    <TextView
 	            android:text="Hello this is an example with constraint width"
@@ -864,7 +888,7 @@ android:background="#ff0000"
 	</TableRow>
 	<#elseif myclass.localName=='ListView' ||  myclass.localName=='androidx.recyclerview.widget.RecyclerView' || myclass.localName=='androidx.drawerlayout.widget.DrawerLayout'  || myclass.localName=='androidx.appcompat.widget.Toolbar' || myclass.localName=='com.ashera.datetime.DatePicker' || myclass.localName=='com.ashera.datetime.TimePicker'
 		|| myclass.localName=='com.google.android.material.bottomnavigation.BottomNavigationView' || myclass.localName=='com.google.android.material.navigationrail.NavigationRailView'
-		|| myclass.localName=='com.google.android.material.navigation.NavigationView'>
+		|| myclass.localName=='com.google.android.material.navigation.NavigationView' || myclass.group == 'com.google.android.material.chip.Chip'>
 	<#elseif myclass.localName=='com.google.android.material.tabs.TabLayout' || myclass.group=='com.google.android.material.tabs.TabLayout'>
 	<com.google.android.material.tabs.TabItem android:text="Person" android:icon="@drawable/icon_clear" android:id="@+id/n__person"/>
 	<com.google.android.material.tabs.TabItem android:text="Home" android:icon="@drawable/icon_calendar" android:id="@+id/n__home"/>
@@ -1083,6 +1107,11 @@ android:visibility="${getVisibility(attrs)}"
 	</#if>
 	
 	<#assign myarray=getTestCases_ProgressBar(attrs, myclass.localName)>
+	<#if myarray?has_content>
+		<#return myarray>
+	</#if>
+	
+	<#assign myarray=getTestCases_Chip(attrs, myclass.localName)>
 	<#if myarray?has_content>
 		<#return myarray>
 	</#if>	

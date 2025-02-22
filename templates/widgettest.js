@@ -10,6 +10,7 @@
 <#include "/templates/widgettest_fragment.xml">
 <#include "/templates/widgettest_navigationview.xml">
 <#include "/templates/widgettest_viewoverlay.xml">
+<#include "/templates/widgettest_chip.xml">
 <#function getWidgetName>
 	<#if myclass.localName == 'layout'>
 		<#return 'Root'>
@@ -81,6 +82,11 @@ import {NavController, InjectController} from './navigation/NavController';
 	</#if>
 	
 	<#assign myarray=getTestCases_attrs_ViewOverlay(attrs, myclass.localName)>
+	<#if myarray?has_content>
+		<#return myarray>
+	</#if>
+	
+	<#assign myarray=getTestCases_attrs_Chip(attrs, myclass.localName)>
 	<#if myarray?has_content>
 		<#return myarray>
 	</#if>

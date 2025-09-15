@@ -19,6 +19,8 @@
 		<#assign myarray = myarray + ["@navigation/nav_child_graph"]>
 	<#elseif attrs.trimmedAttribute == 'actionId' || attrs.trimmedAttribute == 'destinationId'>
 		<#assign myarray = myarray + [""]>
+	<#elseif attrs.trimmedAttribute == 'closeDialog'>
+		<#assign myarray = myarray + ["@+id/text1"]>
 	</#if>		
 	</#if>
 	<#return myarray>
@@ -39,6 +41,8 @@
 		<#assign myarray = myarray + ["'@navigation/nav_child_graph'"]>
 	<#elseif attrs.trimmedAttribute == 'actionId' || attrs.trimmedAttribute == 'destinationId'>
 		<#assign myarray = myarray + ["''"]>		
+	<#elseif attrs.trimmedAttribute == 'closeDialog'>
+		<#assign myarray = myarray + ["'@+id/text1'"]>		
 	</#if>		
 	</#if>
 	<#return myarray>

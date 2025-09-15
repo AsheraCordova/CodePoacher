@@ -306,7 +306,11 @@ import {NavController, InjectController} from './navigation/NavController';
 	<#elseif attrs.trimmedAttribute == 'filterQueryGetPath' || attrs.trimmedAttribute == 'filterQueryStorePath'>
 		<#assign array = array + ["'query->view'"]>		
 	<#elseif attrs.trimmedAttribute == 'searchview_attributes'>
-		<#assign array = array + ["'entries: @array/autosize_text_sizes'"]>			
+		<#assign array = array + ["'entries: @array/autosize_text_sizes'"]>	
+	<#elseif attrs.trimmedAttribute == 'rootDirectory'>	
+		<#assign array = array + ["'cordova.file.persistent/CityApp'"]>
+	<#elseif attrs.trimmedAttribute == 'namespace'>	
+		<#assign array = array + ["''"]>						
 	<#else>
 		<#assign array = array + [attrs.type]>
 	</#if>

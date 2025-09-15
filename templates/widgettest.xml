@@ -1311,10 +1311,14 @@ android:visibility="${getVisibility(attrs)}"
 		<#assign array = array + ["@+id/text1"]>
 	<#elseif attrs.trimmedAttribute == 'filter' || attrs.trimmedAttribute == 'filterId'>		
 		<#assign array = array + ["test"]>			
+	<#elseif attrs.trimmedAttribute == 'rootDirectory'>	
+		<#assign array = array + ["cordova.file.persistent/CityApp"]>
+	<#elseif attrs.trimmedAttribute == 'namespace'>	
+		<#assign array = array + [""]>		
 	<#elseif attrs.trimmedAttribute == 'filterQueryGetPath' || attrs.trimmedAttribute == 'filterQueryStorePath'>
 		<#assign array = array + ["query->view"]>
 	<#elseif attrs.trimmedAttribute == 'searchview_attributes'>
-		<#assign array = array + ["entries:@array/autosize_text_sizes"]>		
+		<#assign array = array + ["entries:@array/autosize_text_sizes"]>
 	<#else>
 		<#assign array = array + [attrs.type]>
 	</#if>

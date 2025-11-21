@@ -888,7 +888,7 @@ android:background="#ff0000"
 	</TableRow>
 	<#elseif myclass.localName=='ListView' ||  myclass.localName=='androidx.recyclerview.widget.RecyclerView' || myclass.localName=='androidx.drawerlayout.widget.DrawerLayout'  || myclass.localName=='androidx.appcompat.widget.Toolbar' || myclass.localName=='com.ashera.datetime.DatePicker' || myclass.localName=='com.ashera.datetime.TimePicker'
 		|| myclass.localName=='com.google.android.material.bottomnavigation.BottomNavigationView' || myclass.localName=='com.google.android.material.navigationrail.NavigationRailView'
-		|| myclass.localName=='com.google.android.material.navigation.NavigationView' || myclass.group == 'com.google.android.material.chip.Chip'>
+		|| myclass.localName=='com.google.android.material.navigation.NavigationView' || myclass.group == 'com.google.android.material.chip.Chip' || myclass.localName == 'RatingBar'>
 	<#elseif myclass.localName=='com.google.android.material.tabs.TabLayout' || myclass.group=='com.google.android.material.tabs.TabLayout'>
 	<com.google.android.material.tabs.TabItem android:text="Person" android:icon="@drawable/icon_clear" android:id="@+id/n__person"/>
 	<com.google.android.material.tabs.TabItem android:text="Home" android:icon="@drawable/icon_calendar" android:id="@+id/n__home"/>
@@ -949,7 +949,10 @@ android:background="#ff0000"
 	<#if localname == 'View' && attrs.trimmedAttribute?starts_with('padding') && !attrs.trimmedAttribute?starts_with('paddingVertical') && !attrs.trimmedAttribute?starts_with('paddingTop') && !attrs.trimmedAttribute?starts_with('paddingBottom') >
 		<#return 'wrap_content'>
 	</#if>
-	
+	<#if localname == 'RatingBar'>
+		<#return 'wrap_content'>
+	</#if>
+		
 	
 	<#if attrs.trimmedAttribute?starts_with('minWidth') || attrs.trimmedAttribute?starts_with('maxWidth') || attrs.trimmedAttribute == 'width' || attrs.trimmedAttribute?starts_with('maxEms') || attrs.trimmedAttribute?starts_with('ems') || attrs.trimmedAttribute?starts_with('minEms')>
 		<#assign width='wrap_content'>
@@ -1174,6 +1177,8 @@ android:visibility="${getVisibility(attrs)}"
 	<#elseif attrs.type == 'float'>
 		<#if attrs.trimmedAttribute == 'iosMinimumScaleFactor'>
 			<#assign array = array + ["0.7", "0.1"]>
+		<#elseif attrs.trimmedAttribute == 'rating'>
+			<#assign array = array + ["2", "4"]>			
 		<#else>
 			<#assign array = array + ["10", "20"]>
 		</#if>		

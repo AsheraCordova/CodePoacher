@@ -69,7 +69,7 @@
 	public Object createWrapperViewHolder(int viewType) {
 		Composite parent = (Composite) ViewImpl.getParent(this);
 		Composite wrapperComposite = new Composite(parent, getStyle(params, fragment));
-        wrapperComposite.setLayout(new org.eclipse.nebula.widgets.layout.AbsoluteLayout());
+        wrapperComposite.setLayout(new com.ashera.common.AbsoluteLayout());
 
         return wrapperComposite;	
 	}

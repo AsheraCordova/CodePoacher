@@ -83,7 +83,23 @@
     if ([view isClickable]) {
         [view setPressedWithBoolean:YES];
     }
+    
+    if ([view hasOnTouchEvent]) {
+    	UITouch *touch = [touches anyObject];
+    	CGPoint point = [touch locationInView:self];
+        [view onTouchEventDownWithInt:point.x withInt:point.y];
+    }
 
+}
+
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesMoved:touches withEvent:event];
+    ADView* view = [_widget asWidget];
+    if ([view hasOnTouchEvent]) {
+    	UITouch *touch = [touches anyObject];
+    	CGPoint point = [touch locationInView:self];
+        [view onTouchEventMoveWithInt:point.x withInt:point.y];
+    }
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -93,6 +109,12 @@
     if ([view isClickable]) {
         [view setPressedWithBoolean:NO];
     }
+    
+    if ([view hasOnTouchEvent]) {
+    	UITouch *touch = [touches anyObject];
+    	CGPoint point = [touch locationInView:self];
+        [view onTouchEventUpWithInt:point.x withInt:point.y];
+    }
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -101,6 +123,12 @@
 
     if ([view isClickable]) {
         [view setPressedWithBoolean:NO];
+    }
+    
+     if ([view hasOnTouchEvent]) {
+    	UITouch *touch = [touches anyObject];
+    	CGPoint point = [touch locationInView:self];
+        [view onTouchEventUpWithInt:point.x withInt:point.y];
     }
 }
 

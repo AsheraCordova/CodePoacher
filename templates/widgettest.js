@@ -140,6 +140,8 @@ import {NavController, InjectController} from './navigation/NavController';
 			<#assign array = array + ["20", "25"]>	
 		<#elseif attrs.trimmedAttribute == 'iosMinimumScaleFactor'>
 			<#assign array = array + ["0.1", "0.7"]>
+		<#elseif attrs.trimmedAttribute == 'rating'>
+			<#assign array = array + ["1", "3"]>			
 		<#else>
 			<#assign array = array + ["20", "40"]>
 		</#if>		

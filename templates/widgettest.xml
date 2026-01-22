@@ -13,6 +13,7 @@
 <#include "/templates/widgettest_navigationview.xml">
 <#include "/templates/widgettest_viewoverlay.xml">
 <#include "/templates/widgettest_chip.xml">
+<#include "/templates/widgettest_swiperefreshbar.xml">
 <#macro getName name namespace=''>
 <#compress>
 	<#if name?starts_with("swt") || name?starts_with("ios")>
@@ -49,6 +50,7 @@
 		<@getAdditinalAttrs_Fragment attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_Fragment>
 		<@getAdditinalAttrs_NavigationView attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_NavigationView>
 		<@getAdditinalAttrs_Chip attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_Chip>
+		<@getAdditinalAttrs_CustomSwipeRefreshLayout attrs=attrs name=name value=value id=id localname=localname widgetname=widgetname></@getAdditinalAttrs_CustomSwipeRefreshLayout>
 		<#if name != 'layoutDescription' && widgetname=='androidx.constraintlayout.motion.widget.MotionLayout'>
 		app:layoutDescription="@xml/motionlayout_test"
         </#if>
@@ -893,6 +895,18 @@ android:background="#ff0000"
 	<com.google.android.material.tabs.TabItem android:text="Person" android:icon="@drawable/icon_clear" android:id="@+id/n__person"/>
 	<com.google.android.material.tabs.TabItem android:text="Home" android:icon="@drawable/icon_calendar" android:id="@+id/n__home"/>
 	<com.google.android.material.tabs.TabItem android:text="Settings" android:icon="@drawable/icon_expand" android:id="@+id/n__settings"/>
+	<#elseif myclass.localName == 'com.reginald.swiperefresh.CustomSwipeRefreshLayout'>
+		<ScrollView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical">
+            <TextView	
+	    android:id="@+id/text0"
+		android:layout_width="match_parent"
+	 	android:layout_height="wrap_content"
+		android:text="Test text  ${testcase}"></TextView>
+            </ScrollView>
 	<#elseif myclass.widgetSuperClass == 'ViewGroupImpl' || myclass.localName=='ViewGroup'>
 	<TextView	
 	    <@getChildAttribute alais=attr testcase=testcase namespace=namespace></@getChildAttribute>${'\n'}
@@ -973,6 +987,9 @@ android:background="#ff0000"
 <#function getTestHeightInternal name localname>
 	<#assign height='wrap_content'>
 	
+	<#if localname == 'com.reginald.swiperefresh.CustomSwipeRefreshLayout'>
+		<#assign height='400dp'>
+	</#if>
 	<#if localname == 'androidx.drawerlayout.widget.DrawerLayout'>
 		<#assign height='100dp'>
 	</#if>
@@ -1118,6 +1135,11 @@ android:visibility="${getVisibility(attrs)}"
 	<#if myarray?has_content>
 		<#return myarray>
 	</#if>	
+	
+	<#assign myarray=getTestCases_CustomSwipeRefreshLayout(attrs, myclass.localName)>
+	<#if myarray?has_content>
+		<#return myarray>
+	</#if>
 	
 	<#if attrs.type == 'dimensionsp'>
 		<#assign array = array + ["10sp"]>
@@ -1513,6 +1535,9 @@ android:visibility="${getVisibility(attrs)}"
 <#function getSampleWidgetHeight localname>
 	<#assign height='wrap_content'>
 	
+	<#if localname == 'com.reginald.swiperefresh.CustomSwipeRefreshLayout'>
+		<#assign height='400dp'>
+	</#if>
 	<#if localname == 'androidx.drawerlayout.widget.DrawerLayout'>
 		<#assign height='100dp'>
 	</#if>

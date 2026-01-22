@@ -1,0 +1,36 @@
+<#macro getAdditinalAttrs_CustomSwipeRefreshLayout attrs name value id localname widgetname>
+<#compress>
+	<#if widgetname=='com.reginald.swiperefresh.CustomSwipeRefreshLayout'>
+		swtAttachEventBubbler="mousedown,mouseup,mousemove"
+		webOverflow="hidden"
+		iosClipsToBounds="true"
+	</#if>
+</#compress>	
+</#macro>         
+
+<#function getTestCases_CustomSwipeRefreshLayout attrs widgetname>
+	<#assign myarray=[]> 
+	
+	
+	<#if attrs.trimmedAttribute == 'top_progress_bar_color_scheme'>
+		<#assign myarray = myarray + ["#0f0,#f00,#0f0,#f00"]>
+	</#if>
+	
+	<#if attrs.trimmedAttribute == 'customHeadLayout'>
+		<#assign myarray = myarray + ["@layout/custom_swiperefresh_head_layout"]>
+	</#if>
+	
+	<#return myarray>
+</#function>
+
+<#function getTestCases_attrs_CustomSwipeRefreshLayout attrs widgetname>
+	<#assign myarray=[]> 
+	<#if attrs.trimmedAttribute == 'top_progress_bar_color_scheme'>
+		<#assign myarray = myarray + ["'#0f0,#f00,#0f0,#f00'"]>
+	</#if>
+	
+	<#if attrs.trimmedAttribute == 'customHeadLayout'>
+		<#assign myarray = myarray + ["'@layout/custom_swiperefresh_head_layout'"]>
+	</#if>
+	<#return myarray>
+</#function>	

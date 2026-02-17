@@ -318,7 +318,9 @@ import {NavController, InjectController} from './navigation/NavController';
 	<#elseif attrs.trimmedAttribute == 'rootDirectory'>	
 		<#assign array = array + ["'cordova.file.persistent/CityApp'"]>
 	<#elseif attrs.trimmedAttribute == 'namespace'>	
-		<#assign array = array + ["''"]>						
+		<#assign array = array + ["''"]>	
+	<#elseif attrs.trimmedAttribute == 'videoPath'>
+		<#assign array = array + ["'my_video_sample.mp4'"]>							
 	<#else>
 		<#assign array = array + [attrs.type]>
 	</#if>

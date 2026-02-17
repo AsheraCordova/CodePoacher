@@ -986,7 +986,9 @@ android:background="#ff0000"
 
 <#function getTestHeightInternal name localname>
 	<#assign height='wrap_content'>
-	
+	<#if localname == 'VideoView'>
+		<#assign height='300dp'>
+	</#if>
 	<#if localname == 'com.reginald.swiperefresh.CustomSwipeRefreshLayout'>
 		<#assign height='400dp'>
 	</#if>
@@ -1346,6 +1348,8 @@ android:visibility="${getVisibility(attrs)}"
 		<#assign array = array + ["query->view"]>
 	<#elseif attrs.trimmedAttribute == 'searchview_attributes'>
 		<#assign array = array + ["entries:@array/autosize_text_sizes"]>
+	<#elseif attrs.trimmedAttribute == 'videoPath'>
+		<#assign array = array + ["my_video_sample.mp4"]>
 	<#else>
 		<#assign array = array + [attrs.type]>
 	</#if>

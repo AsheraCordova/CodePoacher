@@ -320,7 +320,9 @@ import {NavController, InjectController} from './navigation/NavController';
 	<#elseif attrs.trimmedAttribute == 'namespace'>	
 		<#assign array = array + ["''"]>	
 	<#elseif attrs.trimmedAttribute == 'videoPath'>
-		<#assign array = array + ["'my_video_sample.mp4'"]>							
+		<#assign array = array + ["'my_video_sample.mp4'"]>
+	<#elseif attrs.trimmedAttribute == 'dataSource'>
+		<#assign array = array + ["'horse.mp3'"]>									
 	<#else>
 		<#assign array = array + [attrs.type]>
 	</#if>

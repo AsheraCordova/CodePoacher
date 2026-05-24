@@ -41,6 +41,7 @@ public class ${myclass.widgetName} implements com.ashera.widget.IAttributable {
 	// start - body
 	public final static String LOCAL_NAME = "${myclass.localName}"; 
 	private IWidget w;
+	<#if myclass.createDefault?contains("flyWeight|")>private java.util.Map<IWidget, IAttributable> instances = new java.util.WeakHashMap<>();</#if>
 	private ${myclass.widgetName}(IWidget widget) {
 		this.w = widget;
 	}
@@ -54,9 +55,13 @@ public class ${myclass.widgetName} implements com.ashera.widget.IAttributable {
 	
 	@Override
 	public com.ashera.widget.IAttributable newInstance(IWidget widget) {
+		<#if !myclass.createDefault?contains("flyWeight|")>
 		${myclass.widgetName} newIntance = new ${myclass.widgetName}(widget);
 		<#if myclass.createDefault?contains("retainInstance|")>widget.getFragment().addListener(widget, newIntance);</#if>
 		return newIntance;
+		<#else>
+		return instances.computeIfAbsent(widget, w -> new ${myclass.widgetName}(w));
+		</#if>
 	}
 	
 	<#include "/templates/WidgetAttributesClass.java">

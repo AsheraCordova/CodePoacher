@@ -28,7 +28,7 @@ export class ${attrs.typeVariable}Transformer implements ITranform {
 <#compress>
 <#if attrs.methodParams?has_content>
 <#list attrs.methodParams as param>
-<@getTypeScriptTypeVarForMethodParam attrs=param></@getTypeScriptTypeVarForMethodParam> : <@getTypeScriptType attrs=param></@getTypeScriptType><#if (param.nullable)?default('') == 'true'>|null</#if><#if param?has_next>,</#if>
+<@getTypeScriptTypeVarForMethodParam attrs=param></@getTypeScriptTypeVarForMethodParam><#if (param.optional)?default('') == 'true'>?</#if> : <@getTypeScriptType attrs=param></@getTypeScriptType><#if (param.nullable)?default('') == 'true'>|null</#if><#if param?has_next>,</#if>
 </#list>
 <#else>
 <#if attrs.type != 'nil'><@getTypeScriptTypeVar attrs=attrs></@getTypeScriptTypeVar> : <@getTypeScriptType attrs=attrs></@getTypeScriptType><#if attrs.params?has_content>,${attrs.params}</#if></#if>

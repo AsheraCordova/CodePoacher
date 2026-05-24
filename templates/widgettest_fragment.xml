@@ -7,7 +7,7 @@
 <#function getTestCases_Fragment attrs widgetname>
 	<#assign myarray=[]> 
 	<#if widgetname=='fragment'>
-	<#if attrs.trimmedAttribute == 'tag'>
+	<#if attrs.trimmedAttribute == 'tag' || attrs.trimmedAttribute == 'managers'>
 		<#assign myarray = myarray + ["test"]>
 	<#elseif attrs.trimmedAttribute == 'replace'>
 		<#assign myarray = myarray + ["@layout/listfooter"]>
@@ -29,7 +29,7 @@
 <#function getTestCases_attrs_Fragment attrs widgetname>
 	<#assign myarray=[]> 
 	<#if widgetname=='fragment'>
-	<#if attrs.trimmedAttribute == 'tag'>
+	<#if attrs.trimmedAttribute == 'tag' || attrs.trimmedAttribute == 'managers'>
 		<#assign myarray = myarray + ["'test'"]>
 	<#elseif attrs.trimmedAttribute == 'replace'>
 		<#assign myarray = myarray + ["'@layout/listfooter'"]>

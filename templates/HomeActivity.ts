@@ -84,7 +84,7 @@ export default class HomeActivity extends Activity{
 			for(let i=0; i<10;i++) {
 				list.push({"id":i, "name": i + "", "background": (i % 2) == 0 ? "#ff0" : "#f00", "src" : images[i], "mybackground": colors[i]});
 			}
-        	await this.navController.reset().navigate("fragment#framelayout#layout/${layoutFiles[x]}", "testObj->view as pathmap", {"testObj": {"emailIntent": "ram@a.com", "passwordIntent": "b.com"}, looptest: {textlayout: [{"sectionName":"test123"}, {"id":1, "a": "1"}, {"id":2, "a": "2"}]}, "viewpagers": list}).executeCommand();
+        	await this.navController.reset().navigate("fragment<#if activity == 'CompassViewAndroidActivity' || activity == 'MapViewAndroidActivity' >~compass,map</#if>#framelayout#layout/${layoutFiles[x]}", "testObj->view as pathmap", {"testObj": {"emailIntent": "ram@a.com", "passwordIntent": "b.com"}, looptest: {textlayout: [{"sectionName":"test123"}, {"id":1, "a": "1"}, {"id":2, "a": "2"}]}, "viewpagers": list}).executeCommand();
     	}	
 		<#assign x = x + 1 >
 		</#list>

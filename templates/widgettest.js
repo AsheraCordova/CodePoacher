@@ -99,6 +99,10 @@ import {NavController, InjectController} from './navigation/NavController';
 	<#assign array=[]> 
 	<#if attrs.type == 'dimensionsp'>
 		<#assign array = array + ["'20sp'"]>
+	<#elseif attrs.trimmedAttribute == 'gcSrcs'>
+		<#assign array = array + ["'cross3,calatrava_cross'"]>		
+	<#elseif attrs.trimmedAttribute == 'onApproachingDestination' || attrs.trimmedAttribute == 'onDestinationReached'>
+		<#assign array = array + ["2"]> 
 	<#elseif attrs.trimmedAttribute == 'drawableIconSize'>
 		<#assign array = array + ["'20dp'", "'90dp'"]>		
 	<#elseif attrs.trimmedAttribute == 'webGlobalAttributes'>
@@ -299,7 +303,7 @@ import {NavController, InjectController} from './navigation/NavController';
 		<#assign array = array + ["'@+id/dropDownAnchor0'"]>	
 	<#elseif attrs.trimmedAttribute == 'layoutDescription'>
 		<#assign array = array + ["'@xml/motionlayout_test'"]>
-	<#elseif attrs.type= 'id'>
+	<#elseif attrs.type = 'id' || attrs.trimmedAttribute == 'id'>
 		<#assign array = array + ["'@+id/text1'"]>			
 	<#elseif attrs.trimmedAttribute == 'dataKey' || attrs.trimmedAttribute == 'childDataKey'>
 		<#assign array = array + ["'test'"]>
@@ -322,7 +326,9 @@ import {NavController, InjectController} from './navigation/NavController';
 	<#elseif attrs.trimmedAttribute == 'videoPath'>
 		<#assign array = array + ["'my_video_sample.mp4'"]>
 	<#elseif attrs.trimmedAttribute == 'dataSource'>
-		<#assign array = array + ["'horse.mp3'"]>									
+		<#assign array = array + ["'horse.mp3'"]>	
+	<#elseif attrs.type == 'string'>	
+		<#assign array = array + ["'${attrs.type}'"]>	
 	<#else>
 		<#assign array = array + [attrs.type]>
 	</#if>
